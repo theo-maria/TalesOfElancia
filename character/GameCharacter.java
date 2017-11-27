@@ -40,6 +40,8 @@ public abstract class GameCharacter {
 		// TODO - implement Character.getTotalAgility
 		throw new UnsupportedOperationException();
 	}
+        
+        //Commentaire de test
 
 	/**
 	 * 
