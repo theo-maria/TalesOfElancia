@@ -1,7 +1,12 @@
 package item.consumable;
 
 public class Potion extends Consumable {
+    
+	private int remainingDuration;
 
-	private int duration;
-
+        public Boolean isStillActive()
+        {
+            return remainingDuration > 0;
+        }
+        
 }
