@@ -17,6 +17,97 @@ public abstract class Hero extends GameCharacter {
 		// TODO - implement Hero.takeItem
 		throw new UnsupportedOperationException();
 	}
+        
+        @Override
+        public int getTotalHealth() {
+            
+            int healthBonus = 0;
+            for( Item item : this.inventory)
+            {
+                if(item instanceof Equipment)
+                {
+                    if(((Equipment) item).isWorned())
+                    {
+                        healthBonus += ((Equipment) item).getBonusHealth();
+                    }
+                }
+            }
+            
+            return super.getTotalHealth() + healthBonus;   
+	}
+        
+        
+        @Override
+        public int getTotalArmor() 
+        {
+            int armorBonus = 0;
+            for( Item item : this.inventory)
+            {
+                if(item instanceof Equipment)
+                {
+                    if(((Equipment) item).isWorned())
+                    {
+                        armorBonus += ((Equipment) item).getBonusArmor();
+                    }
+                }
+            }
+            
+            return super.getTotalArmor() + armorBonus;
+	}
+        
+        @Override
+        public int getTotalForce() 
+        {
+            int forceBonus = 0;
+            for( Item item : this.inventory)
+            {
+                if(item instanceof Equipment)
+                {
+                    if(((Equipment) item).isWorned())
+                    {
+                        forceBonus += ((Equipment) item).getBonusForce();
+                    }
+                }
+            }
+            
+            return super.getTotalForce() + forceBonus;
+	}
+        
+        @Override
+        public int getTotalIntelligence() 
+        {
+            int intelligenceBonus = 0;
+            for( Item item : this.inventory)
+            {
+                if(item instanceof Equipment)
+                {
+                    if(((Equipment) item).isWorned())
+                    {
+                        intelligenceBonus += ((Equipment) item).getBonusIntelligence();
+                    }
+                }
+            }
+            
+            return super.getTotalIntelligence() + intelligenceBonus;
+	}
+        
+        @Override
+        public int getTotalAgility() 
+        {
+            int agilityBonus = 0;
+            for( Item item : this.inventory)
+            {
+                if(item instanceof Equipment)
+                {
+                    if(((Equipment) item).isWorned())
+                    {
+                        agilityBonus += ((Equipment) item).getBonusAgility();
+                    }
+                }
+            }
+            
+            return super.getTotalAgility() + agilityBonus;
+	}
 
 	/**
 	 * 

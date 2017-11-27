@@ -16,29 +16,29 @@ public abstract class GameCharacter {
 	private int baseIntelligence;
 	private int baseAgility;
 
-	public void getTotalHealth() {
-		// TODO - implement Character.getTotalHealth
-		throw new UnsupportedOperationException();
+	public int getTotalHealth() 
+        {
+            return this.baseHealth;        
 	}
 
-	public void getTotalArmor() {
-		// TODO - implement Character.getTotalArmor
-		throw new UnsupportedOperationException();
+	public int getTotalArmor() 
+        {
+            return this.baseArmor;
 	}
 
-	public void getTotalForce() {
-		// TODO - implement Character.getTotalForce
-		throw new UnsupportedOperationException();
+	public int getTotalForce() 
+        {
+            return this.baseForce;
 	}
 
-	public void getTotalIntelligence() {
-		// TODO - implement Character.getTotalIntelligence
-		throw new UnsupportedOperationException();
+	public int getTotalIntelligence() 
+        {
+            return this.baseIntelligence;
 	}
 
-	public void getTotalAgility() {
-		// TODO - implement Character.getTotalAgility
-		throw new UnsupportedOperationException();
+	public int getTotalAgility() 
+        {
+            return this.baseAgility;
 	}
 
 	/**
