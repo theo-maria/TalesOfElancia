@@ -12,5 +12,41 @@ public class Equipment extends Item {
 	private int bonusArmor;
 	private int bonusForce;
 	private int bonusAgility;
+        
+        
+    public Boolean isWorned()
+    {
+        return this.worn;
+    }
+
+    public int getBonusDamage() 
+    {
+        return bonusDamage;
+    }
+
+    public int getBonusIntelligence() 
+    {
+        return bonusIntelligence;
+    }
+
+    public int getBonusHealth() 
+    {
+        return bonusHealth;
+    }
+
+    public int getBonusArmor() 
+    {
+        return bonusArmor;
+    }
+
+    public int getBonusForce() 
+    {
+        return bonusForce;
+    }
+
+    public int getBonusAgility() 
+    {
+        return bonusAgility;
+    }
 
 }

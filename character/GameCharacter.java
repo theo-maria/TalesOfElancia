@@ -24,34 +24,31 @@ public abstract class GameCharacter {
         this.BASE_INTELLIGENCE = BASE_INTELLIGENCE;
         this.BASE_AGILITY = BASE_AGILITY;
     }
-        
-        
 
-	public void getTotalHealth() {
-		// TODO - implement Character.getTotalHealth
-		throw new UnsupportedOperationException();
+	public int getTotalHealth() 
+        {
+            return this.BASE_HEALTH;        
 	}
 
-	public void getTotalArmor() {
-		// TODO - implement Character.getTotalArmor
-		throw new UnsupportedOperationException();
+	public int getTotalArmor() 
+        {
+            return this.BASE_ARMOR;
 	}
 
-	public void getTotalForce() {
-		// TODO - implement Character.getTotalForce
-		throw new UnsupportedOperationException();
+	public int getTotalForce() 
+        {
+            return this.BASE_FORCE;
 	}
 
-	public void getTotalIntelligence() {
-		// TODO - implement Character.getTotalIntelligence
-		throw new UnsupportedOperationException();
+	public int getTotalIntelligence() 
+        {
+            return this.BASE_INTELLIGENCE;
 	}
 
-	public void getTotalAgility() {
-		// TODO - implement Character.getTotalAgility
-		throw new UnsupportedOperationException();
+	public int getTotalAgility() 
+        {
+            return this.BASE_AGILITY;
 	}
-        
 
 	/**
 	 * 
@@ -84,5 +81,4 @@ public abstract class GameCharacter {
 		// TODO - implement Character.talk
 		throw new UnsupportedOperationException();
 	}
-
 }
