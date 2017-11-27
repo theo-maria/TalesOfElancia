@@ -6,15 +6,26 @@ import java.util.*;
 
 public abstract class GameCharacter {
 
-	private Place currentPlace;
-	private Collection<Goal> activableGoals;
-	private GameCharacter fightingCharacter;
-	private int name;
-	private int baseHealth;
-	private int baseArmor;
-	private int baseForce;
-	private int baseIntelligence;
-	private int baseAgility;
+    private Place currentPlace;
+    private Collection<Goal> activableGoals;
+    private GameCharacter fightingCharacter;
+    private final String NAME;
+    private final int BASE_HEALTH;
+    private final int BASE_ARMOR;
+    private final int BASE_FORCE;
+    private final int BASE_INTELLIGENCE;
+    private final int BASE_AGILITY;
+
+    public GameCharacter(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {
+        this.NAME = NAME;
+        this.BASE_HEALTH = BASE_HEALTH;
+        this.BASE_ARMOR = BASE_ARMOR;
+        this.BASE_FORCE = BASE_FORCE;
+        this.BASE_INTELLIGENCE = BASE_INTELLIGENCE;
+        this.BASE_AGILITY = BASE_AGILITY;
+    }
+        
+        
 
 	public void getTotalHealth() {
 		// TODO - implement Character.getTotalHealth
@@ -41,7 +52,6 @@ public abstract class GameCharacter {
 		throw new UnsupportedOperationException();
 	}
         
-        //Commentaire de test
 
 	/**
 	 * 
