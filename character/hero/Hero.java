@@ -111,7 +111,6 @@ public abstract class Hero extends GameCharacter {
                 }
             }
         }
-
         return super.getTotalAgility() + agilityBonus;
     }
 
@@ -133,4 +132,24 @@ public abstract class Hero extends GameCharacter {
             }
         }
     }
+
+    //Méthode facilitant l'utilisation des potions
+
+    // Méthode permettant de heal le héro (utilisé dans les potions)
+    public void healHero(int valHeal)
+    {
+        currentHealth += valHeal;
+    }
+
+    // Méthode permettant de donner des dégats au héro (utilisé dans les potions)
+    public void giveDamage(int valForce)
+    {
+        currentForce += valForce;
+    }
+
+    // Méthode permettant de d'augmenter grandement la force du héro au prix de son armure
+    public void giveArmor(int valArmor)
+    {
+        currentArmor += valArmor;
+    }  
 }

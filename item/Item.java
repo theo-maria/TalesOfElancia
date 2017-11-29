@@ -5,7 +5,7 @@ import character.hero.Hero;
 
 public class Item {
 
-    private Hero relatedHero;
+    protected Hero relatedHero;
     private String name;
     
     public void take(Hero hero)
