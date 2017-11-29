@@ -2,10 +2,13 @@ package item;
 
 
 import game.Goal;
-import item.Item;
 
 public class SoldItem extends Item {
 
-	private Goal necessaryGoal;
-
+    private Goal necessaryGoal;
+    
+    public Boolean isSellable()
+    {
+        return this.necessaryGoal.isAchieved();
+    }
 }

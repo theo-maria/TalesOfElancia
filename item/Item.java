@@ -5,12 +5,29 @@ import character.hero.Hero;
 
 public class Item {
 
-	private Hero relatedHero;
-	private int name;
+    private Hero relatedHero;
+    private String name;
+    
+    public void take(Hero hero)
+    {
+        this.relatedHero = hero;
+    }
 
-	public void take() {
-		// TODO - implement Item.take
-		throw new UnsupportedOperationException();
-	}
+    public Hero getRelatedHero() 
+    {
+        return this.relatedHero;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+        
+        
 
 }

@@ -25,60 +25,60 @@ public abstract class GameCharacter {
         this.BASE_AGILITY = BASE_AGILITY;
     }
 
-	public int getTotalHealth() 
-        {
-            return this.BASE_HEALTH;        
-	}
+    public int getTotalHealth() 
+    {
+        return this.BASE_HEALTH;        
+    }
 
-	public int getTotalArmor() 
-        {
-            return this.BASE_ARMOR;
-	}
+    public int getTotalArmor()
+    {
+        return this.BASE_ARMOR;
+    }
 
-	public int getTotalForce() 
-        {
-            return this.BASE_FORCE;
-	}
+    public int getTotalForce() 
+    {
+        return this.BASE_FORCE;
+    }
 
-	public int getTotalIntelligence() 
-        {
-            return this.BASE_INTELLIGENCE;
-	}
+    public int getTotalIntelligence() 
+    {
+        return this.BASE_INTELLIGENCE;
+    }
 
-	public int getTotalAgility() 
-        {
-            return this.BASE_AGILITY;
-	}
+    public int getTotalAgility() 
+    {
+        return this.BASE_AGILITY;
+    }
 
-	/**
-	 * 
-	 * @param character
-	 */
-	public void attack(GameCharacter character) {
-		// TODO - implement Character.attack
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * 
+     * @param character
+     */
+    public void attack(GameCharacter character) {
+            // TODO - implement Character.attack
+            throw new UnsupportedOperationException();
+    }
 
-	/**
-	 * 
-	 * @param c
-	 */
-	public void startFight(GameCharacter c) {
-		// TODO - implement Character.startFight
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * 
+     * @param c
+     */
+    public void startFight(GameCharacter c) {
+            // TODO - implement Character.startFight
+            throw new UnsupportedOperationException();
+    }
 
-	public void endFight() {
-		// TODO - implement Character.endFight
-		throw new UnsupportedOperationException();
-	}
+    public void endFight() {
+            // TODO - implement Character.endFight
+            throw new UnsupportedOperationException();
+    }
 
-	/**
-	 * 
-	 * @param c
-	 */
-	public void talk(GameCharacter c) {
-		// TODO - implement Character.talk
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * 
+     * @param c
+     */
+    public void talk(GameCharacter c) {
+            // TODO - implement Character.talk
+            throw new UnsupportedOperationException();
+    }
 }
