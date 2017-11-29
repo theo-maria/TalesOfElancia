@@ -6,9 +6,13 @@ import java.util.*;
 
 public class Place {
 
-    private Collection<Exit> exits;
-    Collection<Item> items;
-    private Collection<GameCharacter> characters;
-    private String name;
+    private List<Exit> exits;
+    private List<Item> items;
+    private List<GameCharacter> characters;
+    public final String NAME;
     private Boolean isInDarkness;
+
+    public Place(String NAME) {
+        this.NAME = NAME;
+    }
 }

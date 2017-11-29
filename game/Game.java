@@ -14,7 +14,8 @@ public class Game {
 
     private List<Goal> gameGoals;
     private List<Hero> selectableHeroes;
-    Collection<Place> worldPlaces;
+    private List<Place> worldPlaces;
+    private Place defaultPlace;
     private Hero selectedHero;
 
     public Game() {
@@ -24,6 +25,22 @@ public class Game {
         selectableHeroes.add(new Paladin());
         selectableHeroes.add(new Archer());
         selectableHeroes.add(new Thief());
+        
+        defaultPlace = new Place("Prison");
+        worldPlaces.add(defaultPlace);
+        Place longCorridor = new Place("Long Couloir");
+        worldPlaces.add(longCorridor);
+        Place vilburasChamber = new Place("Chambre de Vilburas");
+        worldPlaces.add(vilburasChamber);
+        worldPlaces.add(new Place("Repère de [BOSS 1]"));
+        worldPlaces.add(new Place("Repère de [BOSS 2]"));
+        worldPlaces.add(new Place("Repère de [BOSS 3]"));
+        Place enigmaticRoom = new Place("Pièce énigmatique");
+        worldPlaces.add(enigmaticRoom);
+        Place darkRoom = new Place("Pièce sombre");
+        worldPlaces.add(darkRoom);
+        Place stairs = new Place("Escalier");
+        worldPlaces.add(stairs);
     }
     
     public static void main(String[] args) {
@@ -45,10 +62,10 @@ public class Game {
             chosenNumber = sc.nextInt();
         }while(chosenNumber < 1 || chosenNumber > selectableHeroes.size());
         selectedHero = selectableHeroes.get(chosenNumber-1);
-        
+        System.out.println("Vous avez choisi d'incarner " + selectedHero.NAME);
     }
 
-    public void startFight(GameCharacter charac1, GameCharacter charac2){
-
+    public static void startFight(GameCharacter charac1, GameCharacter charac2){
+        
     }
 }
