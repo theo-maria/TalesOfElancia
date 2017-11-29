@@ -5,7 +5,7 @@ public class Paladin extends Hero {
 	private int HEALTH_GIVEN;
 
     public Paladin() {
-        super("Sungwald Lighthawk", BASE_HEALTH, BASE_ARMOR, BASE_FORCE, BASE_INTELLIGENCE, BASE_AGILITY);
+        super("Sungwald Lighthawk", "Paladin", 75, 30, 20, 10, 10);
     }
         
         

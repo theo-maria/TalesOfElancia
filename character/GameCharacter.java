@@ -9,7 +9,7 @@ public abstract class GameCharacter {
     private Place currentPlace;
     private Collection<Goal> activableGoals;
     private GameCharacter fightingCharacter;
-    private final String NAME;
+    public final String NAME;
     private final int BASE_HEALTH;
     private final int BASE_ARMOR;
     private final int BASE_FORCE;

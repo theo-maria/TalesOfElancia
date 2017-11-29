@@ -8,12 +8,18 @@ import java.util.*;
 public abstract class Hero extends GameCharacter {
 
     private Collection<Item> inventory;
+    private final String CLASS_NAME;
 
-    public Hero(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {
+    public Hero(String NAME, String CLASS_NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {
         super(NAME, BASE_HEALTH, BASE_ARMOR, BASE_FORCE, BASE_INTELLIGENCE, BASE_AGILITY);
+        this.CLASS_NAME = CLASS_NAME;
+    }
+
+    public String getCLASS_NAME() {
+        return CLASS_NAME;
     }
         
-
+    
 	/**
 	 * 
 	 * @param item

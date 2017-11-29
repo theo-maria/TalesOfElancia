@@ -6,9 +6,9 @@ import java.util.*;
 
 public class Place {
 
-	private Collection<Exit> exits;
-	Collection<Item> items;
-	private Collection<GameCharacter> characters;
-	private int name;
-
+    private Collection<Exit> exits;
+    Collection<Item> items;
+    private Collection<GameCharacter> characters;
+    private String name;
+    private Boolean isInDarkness;
 }

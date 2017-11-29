@@ -5,7 +5,7 @@ public class Sorcerer extends Hero {
 	private int COMPANION_ATTACK_CHANCE;
 
     public Sorcerer() {
-        super("Sagius", BASE_HEALTH, BASE_ARMOR, BASE_FORCE, BASE_INTELLIGENCE, BASE_AGILITY);
+        super("Sagius", "Sorcier", 25, 15, 20, 30, 20);
     }
         
         
