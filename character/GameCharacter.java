@@ -15,6 +15,11 @@ public abstract class GameCharacter {
     private final int BASE_FORCE;
     private final int BASE_INTELLIGENCE;
     private final int BASE_AGILITY;
+    protected int currentHealth;
+    protected int currentArmor;
+    protected int currentForce;
+    protected int currentIntelligence;
+    protected int currentAgility;
 
     public GameCharacter(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {
         this.NAME = NAME;

@@ -1,4 +1,7 @@
 package item.consumable;
 
-public class DoubleEffectPotion extends Potion {
+public abstract class DoubleEffectPotion extends Potion {
+
+    @Override
+    public abstract void use();
 }
