@@ -1,5 +1,7 @@
 package character;
 
+import character.enemy.Enemy;
+import game.Fight;
 import world.Place;
 import game.Goal;
 import java.util.*;
@@ -20,6 +22,8 @@ public abstract class GameCharacter {
     protected int currentForce;
     protected int currentIntelligence;
     protected int currentAgility;
+    
+    protected List<String> dialogues;
 
     public GameCharacter(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {
         this.NAME = NAME;
@@ -28,6 +32,11 @@ public abstract class GameCharacter {
         this.BASE_FORCE = BASE_FORCE;
         this.BASE_INTELLIGENCE = BASE_INTELLIGENCE;
         this.BASE_AGILITY = BASE_AGILITY;
+        this.currentHealth = this.BASE_HEALTH;
+        this.currentArmor = this.BASE_ARMOR;
+        this.currentForce = this.BASE_FORCE;
+        this.currentIntelligence = this.BASE_INTELLIGENCE;
+        this.currentAgility = this.BASE_AGILITY;
     }
 
     public int getTotalHealth() 
@@ -54,29 +63,19 @@ public abstract class GameCharacter {
     {
         return this.BASE_AGILITY;
     }
-
-    /**
-     * 
-     * @param character
-     */
-    public void attack(GameCharacter character) {
-            // TODO - implement Character.attack
-            throw new UnsupportedOperationException();
+    
+    public boolean isAlive(){
+        return (currentHealth > 0);
+    }
+    
+    public void damage(int damageValue){
+        
     }
 
-    /**
-     * 
-     * @param c
-     */
-    public void startFight(GameCharacter c) {
-            // TODO - implement Character.startFight
-            throw new UnsupportedOperationException();
+    public int getCurrentHealth() {
+        return currentHealth;
     }
-
-    public void endFight() {
-            // TODO - implement Character.endFight
-            throw new UnsupportedOperationException();
-    }
+   
 
     /**
      * 

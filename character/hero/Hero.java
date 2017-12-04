@@ -1,6 +1,8 @@
 package character.hero;
 
 import character.GameCharacter;
+import character.enemy.Enemy;
+import game.Fight;
 import item.equipment.Equipment;
 import item.Item;
 import java.util.*;
@@ -156,4 +158,12 @@ public abstract class Hero extends GameCharacter {
     {
         currentArmor += valArmor;
     }  
+    
+    /**
+     * 
+     * @param c
+     */
+    public void fight(Enemy e) {
+        Fight fight = new Fight(this, e);
+    }
 }

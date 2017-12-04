@@ -17,8 +17,18 @@ public class Game {
     private List<Place> worldPlaces;
     private Place defaultPlace;
     private Hero selectedHero;
+    private Map<String,String> commands;
 
     public Game() {
+        commands = new HashMap<>();
+        commands.put("go", "Permet de se rendre dans un lieu voisin - Utilisation: go direction");
+        commands.put("help", "Affiche la liste des commandes");
+        commands.put("look", "Permet de regarder autour de vous, ou de regarder un objet en particulier - Utilisation: look [object]");
+        commands.put("take", "Permet de ramasser un objet - Utilisation: take object");
+        commands.put("quit", "Permet de quitter la partie");
+        commands.put("use", "Permet d'utiliser un objet, ou deux objets ensemble - Utilisation: use object1 [object2]");
+        commands.put("fight", "Permet d'engager un combat avec un ennemi - Utilisation: fight ennemi");
+        
         selectableHeroes = new ArrayList<>();
         selectableHeroes.add(new Warrior());
         selectableHeroes.add(new Sorcerer());
@@ -26,6 +36,7 @@ public class Game {
         selectableHeroes.add(new Archer());
         selectableHeroes.add(new Thief());
         
+        worldPlaces = new ArrayList<>();
         defaultPlace = new Place("Prison");
         worldPlaces.add(defaultPlace);
         Place longCorridor = new Place("Long Couloir");
@@ -46,6 +57,7 @@ public class Game {
     public static void main(String[] args) {
         Game game = new Game();
         game.chooseCharacter();
+        game.userAction();
     }
     
     
@@ -64,8 +76,16 @@ public class Game {
         selectedHero = selectableHeroes.get(chosenNumber-1);
         System.out.println("Vous avez choisi d'incarner " + selectedHero.NAME);
     }
-
-    public static void startFight(GameCharacter charac1, GameCharacter charac2){
+    
+    public void userAction(){
+        System.out.println("Que faites-vous ?");
+        Scanner sc = new Scanner(System.in);
+        String textCommand = "";
+        do{
+            System.out.println("Entrez une commande valide:");
+            textCommand = sc.nextLine();
+            
+        }while(!commands.containsKey(textCommand.split(" ", 2)[0]));
         
     }
 }
