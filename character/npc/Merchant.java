@@ -6,6 +6,10 @@ import java.util.*;
 public class Merchant extends NPC {
     
     private Collection<SoldItem> soldItems;
+
+    public Merchant() {
+        super("Marchand", 50, 10, 40, 20, 20);
+    }
     
     public void showSoldItems()
     {
