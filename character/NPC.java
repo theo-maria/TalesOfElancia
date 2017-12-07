@@ -1,8 +1,5 @@
 package character;
 
-
-import character.GameCharacter;
-
 public abstract class NPC extends GameCharacter {
 
     public NPC(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {

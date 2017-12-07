@@ -2,10 +2,12 @@ package item.consumable;
 
 public class LifePotion extends Potion {
 
-    private int givenHealth; //Mettre la valeur de la vie récupéré par tour
+    public LifePotion() {
+        super("Life Potion", 0, 20, 0, 0, 0);
+    }
 
     @Override
     public void use() {
-        this.relatedHero.healHero(givenHealth);
+        relatedHero.buffHero(this);
     }
 }
