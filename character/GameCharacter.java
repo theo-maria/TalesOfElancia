@@ -1,6 +1,5 @@
 package character;
 
-import game.Fight;
 import world.Place;
 import game.Goal;
 import java.util.*;
@@ -8,7 +7,7 @@ import java.util.*;
 public abstract class GameCharacter {
 
     private Place currentPlace;
-    private Collection<Goal> activableGoals;
+    private List<Goal> activableGoals;
     private GameCharacter fightingCharacter;
     public final String NAME;
     private final int BASE_HEALTH;
@@ -60,7 +59,11 @@ public abstract class GameCharacter {
     public int getCurrentHealth() {
         return currentHealth;
     }
-   
+    
+    public void setCurrentHealth(int health)
+    {
+        this.currentHealth += health;
+    }
 
     /**
      * 
