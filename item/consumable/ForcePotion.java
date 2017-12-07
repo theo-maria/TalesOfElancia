@@ -4,7 +4,7 @@ public class ForcePotion extends BuffPotion {
 
 
     public ForcePotion() {
-        super("Force Potion", 0, 0, 0, 5,0);
+        super("Force Potion", "Potion qui donne un bonus de force pour 1 combat", 0, 0, 0, 5,0);
     }
     
     @Override

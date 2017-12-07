@@ -97,7 +97,7 @@ public class Game {
             if(commande.size() == 1){
                 System.out.println("Vous voyez:");
                 for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
-                    System.out.println("- " + i.getName());
+                    System.out.println("- " + i.NAME);
                 }
             }
             // Deux paramètres
@@ -105,14 +105,14 @@ public class Game {
                 Item item = null;
                 
                 for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
-                    if(i.getName() == commande.get(1))
+                    if(i.NAME == commande.get(1))
                         item = i;
                 }
                 
                 if(item == null)
                     System.out.println("Il n'y a pas d'objet '" + commande.get(1) + "' dans la pièce");
                 else
-                    System.out.println(item.getName() + " : " /*+ item.*/);
+                    System.out.println(item.NAME + " : " + item.DESCRIPTION);
             }
         }
         else if(commande.get(0).equals("take"))
