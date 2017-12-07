@@ -13,8 +13,8 @@ public abstract class Hero extends GameCharacter {
     private List<Consumable> activatedItems ;
     private final String CLASS_NAME;
 
-    public Hero(String NAME, String CLASS_NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {
-        super(NAME, BASE_HEALTH, BASE_ARMOR, BASE_FORCE, BASE_INTELLIGENCE, BASE_AGILITY);
+    public Hero(String NAME, String CLASS_NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_AGILITY) {
+        super(NAME, BASE_HEALTH, BASE_ARMOR, BASE_FORCE, BASE_AGILITY);
         this.CLASS_NAME = CLASS_NAME;
     }
 
@@ -84,24 +84,6 @@ public abstract class Hero extends GameCharacter {
         }
 
         return super.getTotalForce() + forceBonus;
-    }
-
-    @Override
-    public int getTotalIntelligence() 
-    {
-        int intelligenceBonus = 0;
-        for( Item item : this.inventory)
-        {
-            if(item instanceof Equipment)
-            {
-                if(((Equipment) item).isWorned())
-                {
-                    intelligenceBonus += item.getBONUS_INTELLIGENCE();
-                }
-            }
-        }
-
-        return super.getTotalIntelligence() + intelligenceBonus;
     }
 
     @Override

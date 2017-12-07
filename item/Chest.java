@@ -8,7 +8,7 @@ public class Chest extends Item {
     private Collection<Item> containedItems;
 
     public Chest() {
-        super("Coffre", "Contient des objets", 0, 0, 0, 0, 0);
+        super("Coffre", "Contient des objets", 0, 0, 0, 0);
     }
     
     @Override

@@ -14,19 +14,17 @@ public abstract class GameCharacter {
     private final int BASE_HEALTH;
     private final int BASE_ARMOR;
     private final int BASE_FORCE;
-    private final int BASE_INTELLIGENCE;
     private final int BASE_AGILITY;
     protected int currentHealth;
 
     
     protected List<String> dialogues;
 
-    public GameCharacter(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {
+    public GameCharacter(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_AGILITY) {
         this.NAME = NAME;
         this.BASE_HEALTH = BASE_HEALTH;
         this.BASE_ARMOR = BASE_ARMOR;
         this.BASE_FORCE = BASE_FORCE;
-        this.BASE_INTELLIGENCE = BASE_INTELLIGENCE;
         this.BASE_AGILITY = BASE_AGILITY;
         this.currentHealth = this.BASE_HEALTH;
     }
@@ -45,12 +43,7 @@ public abstract class GameCharacter {
     {
         return this.BASE_FORCE;
     }
-
-    public int getTotalIntelligence() 
-    {
-        return this.BASE_INTELLIGENCE;
-    }
-
+    
     public int getTotalAgility() 
     {
         return this.BASE_AGILITY;
