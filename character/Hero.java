@@ -1,6 +1,5 @@
 package character;
 
-import character.GameCharacter;
 import game.Fight;
 import item.Consumable;
 import item.Equipment;
@@ -28,6 +27,7 @@ public abstract class Hero extends GameCharacter {
     public void takeItem(Item item)
     {
         this.inventory.add(item);
+        item.setRelatedHero(this);
         item.take(this);
     }
 
@@ -138,6 +138,13 @@ public abstract class Hero extends GameCharacter {
                 //gérer le cas où l'équipement n'est pas dans l'inventaire
             }
         }
+    }
+    
+    public void useItem(Item item){
+        if (item instanceof Equipment)
+            equipItem((Equipment)item);
+        else if(item instanceof Consumable)
+            ((Consumable) item).use();
     }
 
     public void buffHero(Consumable c)

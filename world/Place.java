@@ -20,5 +20,16 @@ public class Place {
         return items;
     }
     
+    public void removeItemFromPlace(Item i){
+        items.remove(i);
+    }
     
+    public Item getItemByName(String name){
+        Item item = null;
+        for(Item i : getItems()){
+            if(i.NAME.equals(name))
+                item = i;
+        }
+        return item;
+    }
 }

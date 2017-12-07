@@ -19,15 +19,16 @@ public class Game {
     private Place defaultPlace;
     private Hero selectedHero;
     private Map<String,String> commands;
+    private Boolean quittingGame;
 
     public Game() {
         commands = new HashMap<>();
         commands.put("go", "Permet de se rendre dans un lieu voisin - Utilisation: go direction");
         commands.put("help", "Affiche la liste des commandes");
-        commands.put("look", "Permet de regarder autour de vous, ou de regarder un objet en particulier - Utilisation: look [object]");
+        commands.put("look", "Permet de regarder autour de vous, ou de regarder un objet en particulier - Utilisation: look [objet]");
         commands.put("take", "Permet de ramasser un objet - Utilisation: take object");
         commands.put("quit", "Permet de quitter la partie");
-        commands.put("use", "Permet de voir l'inventaire du héros, ou d'utiliser un objet, ou deux objets ensemble - Utilisation: use [object1] [object2]");
+        commands.put("use", "Permet de voir l'inventaire du héros, ou d'utiliser un objet, ou deux objets ensemble - Utilisation: use [objet1] [objet2]");
         commands.put("fight", "Permet d'engager un combat avec un ennemi - Utilisation: fight ennemi");
         commands.put("talk", "Permet de parler avec un personnage - Utilisation: talk personnage");
         
@@ -93,38 +94,66 @@ public class Game {
             }
         }
         else if(commande.get(0).equals("look")){
-            // Un seul paramètre
-            if(commande.size() == 1){
-                System.out.println("Vous voyez:");
-                for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
-                    System.out.println("- " + i.NAME);
-                }
-            }
-            // Deux paramètres
-            else{
-                Item item = null;
-                
-                for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
-                    if(i.NAME == commande.get(1))
-                        item = i;
-                }
-                
-                if(item == null)
-                    System.out.println("Il n'y a pas d'objet '" + commande.get(1) + "' dans la pièce");
-                else
-                    System.out.println(item.NAME + " : " + item.DESCRIPTION);
+            switch (commande.size()) {
+                // Un seul paramètre
+                case 1:
+                    System.out.println("Vous voyez:");
+                    for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
+                        System.out.println("- " + i.NAME);
+                    }   break;
+                // Deux paramètres
+                case 2:
+                    Item item = null;
+                    item = ((GameCharacter)selectedHero).getCurrentPlace().getItemByName(commande.get(1));
+                    if(item == null)
+                        System.out.println("Il n'y a pas d'objet '" + commande.get(1) + "' dans la pièce");
+                    else
+                        System.out.println(item.NAME + " : " + item.DESCRIPTION);
+                    break;
+                default:
+                    System.out.println("Utilisation: look [objet]");
+                    break;
             }
         }
-        else if(commande.get(0).equals("take"))
-            ;
-        else if(commande.get(0).equals("quit"))
-            ;
-        else if(commande.get(0).equals("use"))
-            ;
-        else if(commande.get(0).equals("fight"))
-            ;
-        else if(commande.get(0).equals("talk"))
-            ;
+        else if(commande.get(0).equals("take")){
+            switch(commande.size()){
+                case 2:
+                    Item item = null;
+                    for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
+                        if(i.NAME.equals(commande.get(1)))
+                            item = i;
+                    }
+                    if(item == null)
+                        System.out.println("Il n'y a pas d'objet '" + commande.get(1) + "' dans la pièce");
+                    else{
+                        ((GameCharacter)selectedHero).getCurrentPlace().removeItemFromPlace(item);
+                        System.out.println("Vous ramassez l'objet '" + item.NAME + "'");
+                    }
+                    break;
+                default:
+                    System.out.println("Utilisation : take [objet]");
+            }
+        }
+        else if(commande.get(0).equals("quit")){
+            System.out.println("Voulez-vous vraiment quitter ? 1 : Oui , 2 : Non");
+            Scanner sc = new Scanner(System.in);
+            int choice;
+            do{
+                choice = sc.nextInt();
+            }while(choice != 1 && choice != 2);
+            
+            if(choice == 1)
+                quittingGame = true;
+        }
+        else if(commande.get(0).equals("use")){
+            
+        }
+        else if(commande.get(0).equals("fight")){
+            
+        }
+        else if(commande.get(0).equals("talk")){
+            
+        }
     }
     
     public List<String> getUserCommand(){

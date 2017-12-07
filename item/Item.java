@@ -60,4 +60,10 @@ public class Item {
     {
         return BONUS_AGILITY;
     }
+
+    public void setRelatedHero(Hero relatedHero) {
+        this.relatedHero = relatedHero;
+    }
+    
+    
 }
