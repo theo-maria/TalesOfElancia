@@ -19,7 +19,7 @@ public class Merchant extends NPC {
         {
             if( solditem.isSellable() )
             {
-                System.out.println("\t" + solditem.getName() + "\n");
+                System.out.println("\t" + solditem.NAME + "\n");
             }
         }
     }

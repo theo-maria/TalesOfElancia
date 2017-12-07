@@ -6,19 +6,19 @@ import character.Hero;
 public class Item {
 
     protected Hero relatedHero;
-    private String name;
-    protected final int BONUS_DAMAGE;
+    public final String NAME;
+    public final String DESCRIPTION;
     protected final int BONUS_INTELLIGENCE;
     protected final int BONUS_HEALTH;
     protected final int BONUS_ARMOR;
     protected final int BONUS_FORCE;
     protected final int BONUS_AGILITY;
     
-    public Item(String name, int BONUS_DAMAGE, int BONUS_INTELLIGENCE, int BONUS_HEALTH, 
+    public Item(String NAME, String DESCRIPTION, int BONUS_INTELLIGENCE, int BONUS_HEALTH, 
             int BONUS_ARMOR, int BONUS_FORCE, int BONUS_AGILITY)
     {
-        this.name = name;
-        this.BONUS_DAMAGE = BONUS_DAMAGE;
+        this.NAME = NAME;
+        this.DESCRIPTION = DESCRIPTION;
         this.BONUS_INTELLIGENCE = BONUS_INTELLIGENCE;
         this.BONUS_HEALTH = BONUS_HEALTH;
         this.BONUS_ARMOR = BONUS_ARMOR;
@@ -34,21 +34,6 @@ public class Item {
     public Hero getRelatedHero() 
     {
         return this.relatedHero;
-    }
-
-    public String getName()
-    {
-        return this.name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-    
-    public int getBONUS_DAMAGE() 
-    {
-        return BONUS_DAMAGE;
     }
 
     public int getBONUS_INTELLIGENCE() 

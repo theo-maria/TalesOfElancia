@@ -2,17 +2,13 @@ package item.consumable;
 
 public class MysteriousPotion extends DoubleEffectPotion {
 
-    private int givenDamage;
-    private int removedArmor;
-
-    public MysteriousPotion(String name, int BONUS_DAMAGE, int BONUS_INTELLIGENCE, int BONUS_HEALTH, int BONUS_ARMOR, int BONUS_FORCE, int BONUS_AGILITY) {
-        super(name, BONUS_DAMAGE, BONUS_INTELLIGENCE, BONUS_HEALTH, BONUS_ARMOR, BONUS_FORCE, BONUS_AGILITY);
+    public MysteriousPotion() {
+        super("Mysterious Potion", "???", 0, 0, -10, 20, 0);
     }
 
     @Override
     public void use() {
-        this.relatedHero.giveDamage(givenDamage);
-        this.relatedHero.giveArmor(removedArmor);
+        relatedHero.buffHero(this);
     }
 
 }

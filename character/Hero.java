@@ -2,13 +2,15 @@ package character;
 
 import character.GameCharacter;
 import game.Fight;
+import item.Consumable;
 import item.Equipment;
 import item.Item;
 import java.util.*;
 
 public abstract class Hero extends GameCharacter {
 
-    private Collection<Item> inventory;
+    private List<Item> inventory;
+    private List<Consumable> activatedItems ;
     private final String CLASS_NAME;
 
     public Hero(String NAME, String CLASS_NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_INTELLIGENCE, int BASE_AGILITY) {
@@ -138,26 +140,12 @@ public abstract class Hero extends GameCharacter {
         }
     }
 
-    //Méthode facilitant l'utilisation des potions
-
-    // Méthode permettant de heal le héro (utilisé dans les potions)
-    public void healHero(int valHeal)
+    public void buffHero(Consumable c)
     {
-        currentHealth += valHeal;
+        activatedItems.add(c);
+        inventory.remove(c);
     }
 
-    // Méthode permettant de donner des dégats au héro (utilisé dans les potions)
-    public void giveDamage(int valForce)
-    {
-        currentForce += valForce;
-    }
-
-    // Méthode permettant de d'augmenter grandement la force du héro au prix de son armure
-    public void giveArmor(int valArmor)
-    {
-        currentArmor += valArmor;
-    }  
-    
     /**
      * 
      * @param c
