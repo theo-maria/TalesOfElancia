@@ -8,6 +8,7 @@ import character.hero.Paladin;
 import character.hero.Sorcerer;
 import character.hero.Thief;
 import character.hero.Warrior;
+import item.Item;
 import java.util.*;
 
 public class Game {
@@ -26,8 +27,9 @@ public class Game {
         commands.put("look", "Permet de regarder autour de vous, ou de regarder un objet en particulier - Utilisation: look [object]");
         commands.put("take", "Permet de ramasser un objet - Utilisation: take object");
         commands.put("quit", "Permet de quitter la partie");
-        commands.put("use", "Permet d'utiliser un objet, ou deux objets ensemble - Utilisation: use object1 [object2]");
+        commands.put("use", "Permet de voir l'inventaire du héros, ou d'utiliser un objet, ou deux objets ensemble - Utilisation: use [object1] [object2]");
         commands.put("fight", "Permet d'engager un combat avec un ennemi - Utilisation: fight ennemi");
+        commands.put("talk", "Permet de parler avec un personnage - Utilisation: talk personnage");
         
         selectableHeroes = new ArrayList<>();
         selectableHeroes.add(new Warrior());
@@ -43,9 +45,9 @@ public class Game {
         worldPlaces.add(longCorridor);
         Place vilburasChamber = new Place("Chambre de Vilburas");
         worldPlaces.add(vilburasChamber);
-        worldPlaces.add(new Place("Repère de [BOSS 1]"));
-        worldPlaces.add(new Place("Repère de [BOSS 2]"));
-        worldPlaces.add(new Place("Repère de [BOSS 3]"));
+        worldPlaces.add(new Place("Repère de Gotza"));
+        worldPlaces.add(new Place("Repère de Beelzum"));
+        worldPlaces.add(new Place("Repère de Gan"));
         Place enigmaticRoom = new Place("Pièce énigmatique");
         worldPlaces.add(enigmaticRoom);
         Place darkRoom = new Place("Pièce sombre");
@@ -79,13 +81,68 @@ public class Game {
     
     public void userAction(){
         System.out.println("Que faites-vous ?");
+        List<String> commande = getUserCommand();
+        
+        if(commande.get(0).equals("go")){
+            
+        }
+        else if(commande.get(0).equals("help")){
+            System.out.println("Voici la liste des commandes utilisables:");
+            for(Map.Entry<String,String> c : commands.entrySet()){
+                System.out.println("- " + c.getKey() + " : " + c.getValue());
+            }
+        }
+        else if(commande.get(0).equals("look")){
+            // Un seul paramètre
+            if(commande.size() == 1){
+                System.out.println("Vous voyez:");
+                for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
+                    System.out.println("- " + i.getName());
+                }
+            }
+            // Deux paramètres
+            else{
+                Item item = null;
+                
+                for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
+                    if(i.getName() == commande.get(1))
+                        item = i;
+                }
+                
+                if(item == null)
+                    System.out.println("Il n'y a pas d'objet '" + commande.get(1) + "' dans la pièce");
+                else
+                    System.out.println(item.getName() + " : " /*+ item.*/);
+            }
+        }
+        else if(commande.get(0).equals("take"))
+            ;
+        else if(commande.get(0).equals("quit"))
+            ;
+        else if(commande.get(0).equals("use"))
+            ;
+        else if(commande.get(0).equals("fight"))
+            ;
+        else if(commande.get(0).equals("talk"))
+            ;
+    }
+    
+    public List<String> getUserCommand(){
+        List<String> chosenCommand = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         String textCommand = "";
+        String firstWord = "";
         do{
             System.out.println("Entrez une commande valide:");
             textCommand = sc.nextLine();
-            
-        }while(!commands.containsKey(textCommand.split(" ", 2)[0]));
+            firstWord = textCommand.split(" ", 2)[0];
+            if(!commands.containsKey(firstWord))
+                System.out.println("Commande '" + firstWord + "' non reconnue");
+        }while(!commands.containsKey(firstWord));
         
+        for(String word : textCommand.split(" ")){
+            chosenCommand.add(word);
+        }
+        return chosenCommand;
     }
 }

@@ -15,4 +15,10 @@ public class Place {
     public Place(String NAME) {
         this.NAME = NAME;
     }
+
+    public List<Item> getItems() {
+        return items;
+    }
+    
+    
 }

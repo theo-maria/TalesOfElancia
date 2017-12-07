@@ -84,4 +84,10 @@ public abstract class GameCharacter {
             // TODO - implement Character.talk
             throw new UnsupportedOperationException();
     }
+
+    public Place getCurrentPlace() {
+        return currentPlace;
+    }
+    
+    
 }
