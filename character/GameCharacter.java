@@ -17,10 +17,7 @@ public abstract class GameCharacter {
     private final int BASE_INTELLIGENCE;
     private final int BASE_AGILITY;
     protected int currentHealth;
-    protected int currentArmor;
-    protected int currentForce;
-    protected int currentIntelligence;
-    protected int currentAgility;
+
     
     protected List<String> dialogues;
 
@@ -32,10 +29,6 @@ public abstract class GameCharacter {
         this.BASE_INTELLIGENCE = BASE_INTELLIGENCE;
         this.BASE_AGILITY = BASE_AGILITY;
         this.currentHealth = this.BASE_HEALTH;
-        this.currentArmor = this.BASE_ARMOR;
-        this.currentForce = this.BASE_FORCE;
-        this.currentIntelligence = this.BASE_INTELLIGENCE;
-        this.currentAgility = this.BASE_AGILITY;
     }
 
     public int getMaxHealth() 
