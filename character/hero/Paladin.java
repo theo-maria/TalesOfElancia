@@ -1,5 +1,7 @@
 package character.hero;
 
+import character.Hero;
+
 public class Paladin extends Hero {
 
 	private int HEALTH_GIVEN;

@@ -6,8 +6,8 @@
 package game;
 
 import character.GameCharacter;
-import character.enemy.Enemy;
-import character.hero.Hero;
+import character.Enemy;
+import character.Hero;
 
 /**
  *

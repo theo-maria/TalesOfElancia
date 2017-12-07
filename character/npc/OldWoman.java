@@ -1,5 +1,7 @@
 package character.npc;
 
+import character.NPC;
+
 public class OldWoman extends NPC {
 
     public OldWoman() {

@@ -1,9 +1,8 @@
-package character.hero;
+package character;
 
 import character.GameCharacter;
-import character.enemy.Enemy;
 import game.Fight;
-import item.equipment.Equipment;
+import item.Equipment;
 import item.Item;
 import java.util.*;
 

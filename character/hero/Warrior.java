@@ -1,5 +1,7 @@
 package character.hero;
 
+import character.Hero;
+
 public class Warrior extends Hero {
 
 	private final int FURY_STEP = 15;

@@ -1,5 +1,7 @@
 package item.consumable;
 
+import item.Consumable;
+
 public abstract class Potion extends Consumable {
     
 	private int remainingDuration;

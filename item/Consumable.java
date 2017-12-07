@@ -1,4 +1,4 @@
-package item.consumable;
+package item;
 
 
 import item.Item;

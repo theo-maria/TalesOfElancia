@@ -1,6 +1,6 @@
 package item;
 
-import character.hero.Hero;
+import character.Hero;
 import java.util.*;
 
 public class Chest extends Item {

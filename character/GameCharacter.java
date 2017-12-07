@@ -1,6 +1,5 @@
 package character;
 
-import character.enemy.Enemy;
 import game.Fight;
 import world.Place;
 import game.Goal;

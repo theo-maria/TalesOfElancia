@@ -1,7 +1,7 @@
 package item;
 
 
-import character.hero.Hero;
+import character.Hero;
 
 public class Item {
 

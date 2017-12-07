@@ -1,5 +1,7 @@
 package character.hero;
 
+import character.Hero;
+
 public class Archer extends Hero {
     
     public Archer() {

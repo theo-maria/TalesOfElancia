@@ -1,4 +1,4 @@
-package character.npc;
+package character;
 
 
 import character.GameCharacter;

@@ -3,7 +3,7 @@ package game;
 import character.GameCharacter;
 import character.hero.Archer;
 import world.Place;
-import character.hero.Hero;
+import character.Hero;
 import character.hero.Paladin;
 import character.hero.Sorcerer;
 import character.hero.Thief;

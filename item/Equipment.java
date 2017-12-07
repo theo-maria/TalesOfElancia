@@ -1,4 +1,4 @@
-package item.equipment;
+package item;
 
 
 import item.Item;

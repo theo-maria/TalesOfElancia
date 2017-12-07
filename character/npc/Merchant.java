@@ -1,5 +1,6 @@
 package character.npc;
 
+import character.NPC;
 import item.SoldItem;
 import java.util.*;
 
