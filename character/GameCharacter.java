@@ -38,7 +38,7 @@ public abstract class GameCharacter {
         this.currentAgility = this.BASE_AGILITY;
     }
 
-    public int getTotalHealth() 
+    public int getMaxHealth() 
     {
         return this.BASE_HEALTH;        
     }

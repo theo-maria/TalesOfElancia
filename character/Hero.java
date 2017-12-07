@@ -30,7 +30,7 @@ public abstract class Hero extends GameCharacter {
     }
 
     @Override
-    public int getTotalHealth() {
+    public int getMaxHealth() {
 
         int healthBonus = 0;
         for(Item item : this.inventory)
@@ -39,12 +39,12 @@ public abstract class Hero extends GameCharacter {
             {
                 if(((Equipment) item).isWorned())
                 {
-                    healthBonus += ((Equipment) item).getBONUS_HEALTH();
+                    healthBonus += item.getBONUS_HEALTH();
                 }
             }
         }
 
-        return super.getTotalHealth() + healthBonus;   
+        return super.getMaxHealth() + healthBonus;   
     }
 
 
@@ -58,7 +58,7 @@ public abstract class Hero extends GameCharacter {
             {
                 if(((Equipment) item).isWorned())
                 {
-                    armorBonus += ((Equipment) item).getBONUS_ARMOR();
+                    armorBonus += item.getBONUS_ARMOR();
                 }
             }
         }
@@ -76,7 +76,7 @@ public abstract class Hero extends GameCharacter {
             {
                 if(((Equipment) item).isWorned())
                 {
-                    forceBonus += ((Equipment) item).getBONUS_FORCE();
+                    forceBonus += item.getBONUS_FORCE();
                 }
             }
         }
@@ -94,7 +94,7 @@ public abstract class Hero extends GameCharacter {
             {
                 if(((Equipment) item).isWorned())
                 {
-                    intelligenceBonus += ((Equipment) item).getBONUS_INTELLIGENCE();
+                    intelligenceBonus += item.getBONUS_INTELLIGENCE();
                 }
             }
         }
@@ -112,7 +112,7 @@ public abstract class Hero extends GameCharacter {
             {
                 if(((Equipment) item).isWorned())
                 {
-                    agilityBonus += ((Equipment) item).getBONUS_AGILITY();
+                    agilityBonus += item.getBONUS_AGILITY();
                 }
             }
         }
