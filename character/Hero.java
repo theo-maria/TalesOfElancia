@@ -26,6 +26,7 @@ public abstract class Hero extends GameCharacter {
      */
     public void takeItem(Item item)
     {
+        super.getCurrentPlace().removeItemFromPlace(item);
         this.inventory.add(item);
         item.setRelatedHero(this);
         item.take(this);
@@ -115,10 +116,6 @@ public abstract class Hero extends GameCharacter {
             {
                 e.setWorn(true);
             }
-            else
-            {
-                //gérer le cas où l'équipement n'est pas dans l'inventaire
-            }
         }
     }
     
@@ -127,6 +124,10 @@ public abstract class Hero extends GameCharacter {
             equipItem((Equipment)item);
         else if(item instanceof Consumable)
             ((Consumable) item).use();
+    }
+    
+    public void useItem(Item item1, Item item2){
+        
     }
 
     public void buffHero(Consumable c)
@@ -142,4 +143,10 @@ public abstract class Hero extends GameCharacter {
     public void fight(Enemy e) {
         Fight fight = new Fight(this, e);
     }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+    
+    
 }

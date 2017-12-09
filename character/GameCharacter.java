@@ -77,6 +77,8 @@ public abstract class GameCharacter {
     public Place getCurrentPlace() {
         return currentPlace;
     }
-    
-    
+
+    public boolean isTalkable() {
+        return !dialogues.isEmpty();
+    }
 }

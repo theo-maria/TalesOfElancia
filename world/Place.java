@@ -1,5 +1,6 @@
 package world;
 
+import character.Enemy;
 import item.Item;
 import character.GameCharacter;
 import java.util.*;
@@ -24,12 +25,22 @@ public class Place {
         items.remove(i);
     }
     
-    public Item getItemByName(String name){
-        Item item = null;
-        for(Item i : getItems()){
-            if(i.NAME.equals(name))
-                item = i;
+    public List<Enemy> getEnemies(){
+        List<Enemy> enemies = new ArrayList<>();
+        for(GameCharacter c : characters){
+            if(c instanceof Enemy)
+                enemies.add((Enemy)c);
         }
-        return item;
+        return enemies;
     }
+
+    public List<GameCharacter> getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(List<GameCharacter> characters) {
+        this.characters = characters;
+    }
+    
+    
 }

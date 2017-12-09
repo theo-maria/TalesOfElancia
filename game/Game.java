@@ -1,5 +1,6 @@
 package game;
 
+import character.Enemy;
 import character.GameCharacter;
 import character.hero.Archer;
 import world.Place;
@@ -82,19 +83,24 @@ public class Game {
     
     public void userAction(){
         System.out.println("Que faites-vous ?");
-        List<String> commande = getUserCommand();
+        List<String> command = getUserCommand();
         
-        if(commande.get(0).equals("go")){
+        if(command.get(0).equals("go")){
             
         }
-        else if(commande.get(0).equals("help")){
-            System.out.println("Voici la liste des commandes utilisables:");
-            for(Map.Entry<String,String> c : commands.entrySet()){
-                System.out.println("- " + c.getKey() + " : " + c.getValue());
+        else if(command.get(0).equals("help")){
+            if(command.size() == 1){
+                System.out.println("Voici la liste des commandes utilisables:");
+                for(Map.Entry<String,String> c : commands.entrySet()){
+                    System.out.println("- " + c.getKey() + " : " + c.getValue());
+                }
             }
+            else
+                System.out.println("Utilisation : help");
+            
         }
-        else if(commande.get(0).equals("look")){
-            switch (commande.size()) {
+        else if(command.get(0).equals("look")){
+            switch (command.size()) {
                 // Un seul paramètre
                 case 1:
                     System.out.println("Vous voyez:");
@@ -104,9 +110,10 @@ public class Game {
                 // Deux paramètres
                 case 2:
                     Item item = null;
-                    item = ((GameCharacter)selectedHero).getCurrentPlace().getItemByName(commande.get(1));
+                    List<Item> itemList = ((GameCharacter)selectedHero).getCurrentPlace().getItems();
+                    item = Item.getItemByName(itemList,command.get(1));
                     if(item == null)
-                        System.out.println("Il n'y a pas d'objet '" + commande.get(1) + "' dans la pièce");
+                        System.out.println("Il n'y a pas d'objet '" + command.get(1) + "' dans la pièce");
                     else
                         System.out.println(item.NAME + " : " + item.DESCRIPTION);
                     break;
@@ -115,18 +122,16 @@ public class Game {
                     break;
             }
         }
-        else if(commande.get(0).equals("take")){
-            switch(commande.size()){
+        else if(command.get(0).equals("take")){
+            switch(command.size()){
                 case 2:
                     Item item = null;
-                    for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems()){
-                        if(i.NAME.equals(commande.get(1)))
-                            item = i;
-                    }
+                    List<Item> items = ((GameCharacter)selectedHero).getCurrentPlace().getItems();
+                    item = Item.getItemByName(items, command.get(1));
                     if(item == null)
-                        System.out.println("Il n'y a pas d'objet '" + commande.get(1) + "' dans la pièce");
+                        System.out.println("Il n'y a pas d'objet '" + command.get(1) + "' dans la pièce");
                     else{
-                        ((GameCharacter)selectedHero).getCurrentPlace().removeItemFromPlace(item);
+                        selectedHero.takeItem(item);
                         System.out.println("Vous ramassez l'objet '" + item.NAME + "'");
                     }
                     break;
@@ -134,25 +139,95 @@ public class Game {
                     System.out.println("Utilisation : take [objet]");
             }
         }
-        else if(commande.get(0).equals("quit")){
-            System.out.println("Voulez-vous vraiment quitter ? 1 : Oui , 2 : Non");
-            Scanner sc = new Scanner(System.in);
-            int choice;
-            do{
-                choice = sc.nextInt();
-            }while(choice != 1 && choice != 2);
+        else if(command.get(0).equals("quit")){
+            if(command.size() == 1)
+            {
+                System.out.println("Voulez-vous vraiment quitter ? 1 : Oui , 2 : Non");
+                Scanner sc = new Scanner(System.in);
+                int choice;
+                do{
+                    choice = sc.nextInt();
+                }while(choice != 1 && choice != 2);
+                if(choice == 1)
+                    quittingGame = true;
+            }
+            else
+            {
+                System.out.println("Utilisation : quit");
+            }
             
-            if(choice == 1)
-                quittingGame = true;
         }
-        else if(commande.get(0).equals("use")){
-            
+        else if(command.get(0).equals("use")){
+            switch(command.size()){
+                case 1:
+                    System.out.println("Voici votre inventaire:");
+                    for(Item i : selectedHero.getInventory())
+                        System.out.println("- " + i.NAME + " : " + i.DESCRIPTION);
+                    break;
+                case 2:
+                    Item item = Item.getItemByName(selectedHero.getInventory(), command.get(1));
+                    if(item != null){
+                        selectedHero.useItem(item);
+                        System.out.println("Vous utilisez l'objet '" + item.NAME + "'");
+                    }
+                    else{
+                        System.out.println("Vous ne possédez pas l'objet '" + command.get(1) + "'");
+                    }
+                    break;
+                case 3:
+                    Item item1 = Item.getItemByName(selectedHero.getInventory(), command.get(1));
+                    Item item2 = Item.getItemByName(selectedHero.getInventory(), command.get(2));
+                    if(item1 != null && item2 != null){
+                        selectedHero.useItem(item1, item2);
+                        System.out.println("Vous utilisez l'objet '" + item1.NAME + "' avec l'objet '" + item2.NAME +"'");
+                    }
+                    else if(item1 == null && item2 == null)
+                        System.out.println("Vous ne possédez pas les objets '" + command.get(1) + "' et '" + command.get(2) + "'");
+                    else if(item1 == null)
+                        System.out.println("Vous ne possédez pas l'objet '" + command.get(1) + "'");
+                    else if(item2 == null)
+                        System.out.println("Vous ne possédez pas l'objet '" + command.get(2) + "'");
+                default:
+                    System.out.println("Utilisation : use [objet1] [objet2]");
+                    break;
+            }
         }
-        else if(commande.get(0).equals("fight")){
-            
+        else if(command.get(0).equals("fight")){
+            switch(command.size()){
+                case 2:
+                    Enemy enemy = null;
+                    for(Enemy e : selectedHero.getCurrentPlace().getEnemies()){
+                        if(e.NAME.equals(command.get(1)))
+                            enemy = e;
+                    }
+                    if(enemy != null){
+                        System.out.println("Vous engagez un combat avec " + enemy.NAME);
+                        selectedHero.fight(enemy);
+                    }
+                    else
+                        System.out.println("Il n'y a pas d'enemi nommé '" + command.get(1) + "' aux alentours");
+                    break;
+                default:
+                    System.out.println("Utilisation : fight ennemi");
+            }
         }
-        else if(commande.get(0).equals("talk")){
-            
+        else if(command.get(0).equals("talk")){
+            if(command.size() == 2){
+                GameCharacter character = null;
+                for(GameCharacter c : selectedHero.getCurrentPlace().getCharacters()){
+                   if(c.NAME.equals(command.get(1)))
+                       character = c;
+                }
+                if(character != null){
+                    System.out.println("Vous engagez la conversation avec '" + character.NAME + "'");
+                    selectedHero.talk(character);
+                }
+                else
+                    System.out.println("Il n'y a pas de personne nommée '" + command.get(1) + "' aux alentours");
+            }
+            else{
+                System.out.println("Utilisation : talk personnage");
+            }
         }
     }
     

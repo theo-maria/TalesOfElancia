@@ -2,6 +2,7 @@ package item;
 
 
 import character.Hero;
+import java.util.List;
 
 public class Item {
 
@@ -58,5 +59,12 @@ public class Item {
         this.relatedHero = relatedHero;
     }
     
-    
+    public static Item getItemByName(List<Item> items, String name){
+        Item item = null;
+        for(Item i : items){
+            if(i.NAME.equals(name))
+                item = i;
+        }
+        return item;
+    }
 }

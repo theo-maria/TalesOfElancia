@@ -13,7 +13,7 @@ import character.Enemy;
  */
 public class Gotza extends Enemy {
     
-    public Gotza(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_AGILITY) {
+    public Gotza() {
         super("Gotza", 50, 5, 7, 10);
     }
     

@@ -13,4 +13,8 @@ import character.Enemy;
  */
 public class Gan extends Enemy {
     
+    public Gan() {
+        super("Gan", 70, 8, 5, 3);
+    }
+    
 }

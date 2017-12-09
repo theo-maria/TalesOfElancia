@@ -13,7 +13,7 @@ import character.Enemy;
  */
 public class Beelzum extends Enemy {
     
-    public Beelzum(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_AGILITY) {
+    public Beelzum() {
         super("Beelzum", 60, 6, 9, 15);
     }
     
