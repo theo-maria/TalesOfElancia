@@ -11,10 +11,15 @@ public class Place {
     private List<Item> items;
     private List<GameCharacter> characters;
     public final String NAME;
-    private Boolean isInDarkness;
+    public final String DESCRIPTION;
+    private Boolean inDarkness;
 
-    public Place(String NAME) {
+    public Place(String NAME, String DESCRIPTION) {
         this.NAME = NAME;
+        exits = new ArrayList<>();
+        items = new ArrayList<>();
+        characters = new ArrayList<>();
+        this.DESCRIPTION = DESCRIPTION;
     }
 
     public List<Item> getItems() {
@@ -40,6 +45,7 @@ public class Place {
     
     public void addCharacter(GameCharacter c){
         characters.add(c);
+        c.setCurrentPlace(this);
     }
 
     public List<Exit> getExits() {
@@ -48,5 +54,9 @@ public class Place {
     
     public void addExit(Exit e){
         exits.add(e);
+    }
+    
+    public void setDarkness(Boolean inDarkness){
+        this.inDarkness = inDarkness;
     }
 }

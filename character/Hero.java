@@ -4,6 +4,7 @@ import game.Fight;
 import item.Consumable;
 import item.Equipment;
 import item.Item;
+import item.Key;
 import java.util.*;
 import world.Exit;
 
@@ -16,6 +17,8 @@ public abstract class Hero extends GameCharacter {
     public Hero(String NAME, String CLASS_NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_AGILITY) {
         super(NAME, BASE_HEALTH, BASE_ARMOR, BASE_FORCE, BASE_AGILITY);
         this.CLASS_NAME = CLASS_NAME;
+        inventory = new ArrayList<>();
+        activatedItems = new ArrayList<>();
     }
 
     public String getCLASS_NAME() {
@@ -141,8 +144,12 @@ public abstract class Hero extends GameCharacter {
         Fight fight = new Fight(this, e);
     }
     
-    public void accessExit(Exit e){
-        
+    public void accessExit(Exit exit){
+        currentPlace = exit.accessExit();
+    }
+    
+    public void accessExit(Exit exit, Key key){
+        currentPlace = exit.accessExit(key);
     }
 
     public List<Item> getInventory() {

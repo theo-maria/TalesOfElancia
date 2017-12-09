@@ -12,7 +12,9 @@ import character.hero.Warrior;
 import item.Item;
 import item.Key;
 import java.util.*;
+import world.BigDoor;
 import world.Exit;
+import world.LockedExit;
 
 public class Game {
 
@@ -25,6 +27,9 @@ public class Game {
     private Boolean quittingGame;
 
     public Game() {
+        quittingGame = false;
+        
+        // Ajout des différentes commandes utilisateur et leurs descriptions respectives
         commands = new HashMap<>();
         commands.put("go", "Permet de se rendre dans un lieu voisin - Utilisation: go direction [key]");
         commands.put("help", "Affiche la liste des commandes");
@@ -35,6 +40,7 @@ public class Game {
         commands.put("fight", "Permet d'engager un combat avec un ennemi - Utilisation: fight ennemi");
         commands.put("talk", "Permet de parler avec un personnage - Utilisation: talk personnage");
         
+        // Ajout des héros sélectionnables
         selectableHeroes = new ArrayList<>();
         selectableHeroes.add(new Warrior());
         selectableHeroes.add(new Sorcerer());
@@ -42,28 +48,59 @@ public class Game {
         selectableHeroes.add(new Archer());
         selectableHeroes.add(new Thief());
         
+        // Ajout des objectifs du jeu
+        gameGoals = new ArrayList<>();
+        Goal killVilburas = new Goal();
+        gameGoals.add(killVilburas);
+        
+        // Ajout des lieux du jeu
         worldPlaces = new ArrayList<>();
-        defaultPlace = new Place("Prison");
+        defaultPlace = new Place("Prison", "Vous avez été placé dans cette cellule humide");
         worldPlaces.add(defaultPlace);
-        Place longCorridor = new Place("Long Couloir");
+        Place longCorridor = new Place("Long couloir", "Ce long couloir ");
         worldPlaces.add(longCorridor);
-        Place vilburasChamber = new Place("Chambre de Vilburas");
+        Place hall = new Place("Hall Central", "Cette gigantesque pièce semble être le centre du château.");
+        worldPlaces.add(hall);
+        Place gotzaRoom = new Place("Repère de Gotza", "");
+        worldPlaces.add(gotzaRoom);
+        Place beelzumRoom = new Place("Repère de Beelzum", "");
+        worldPlaces.add(beelzumRoom);
+        Place ganRoom = new Place("Repère de Gan", "");
+        worldPlaces.add(ganRoom);
+        Place vilburasChamber = new Place("Chambre de Vilburas", "Vous êtes dans la chambre du maître des lieux. Cette fois, pas de deuxième chance. Soyez sûr d'être prêt !");
         worldPlaces.add(vilburasChamber);
-        worldPlaces.add(new Place("Repère de Gotza"));
-        worldPlaces.add(new Place("Repère de Beelzum"));
-        worldPlaces.add(new Place("Repère de Gan"));
-        Place enigmaticRoom = new Place("Pièce énigmatique");
+        Place enigmaticRoom = new Place("Pièce énigmatique", "Cette pièce vous donne un terrible mal de crâne.");
         worldPlaces.add(enigmaticRoom);
-        Place darkRoom = new Place("Pièce sombre");
+        Place darkRoom = new Place("Pièce sombre", "Même un chat n'oserait pas s'aventurer dans un lieu aussi sombre...");
         worldPlaces.add(darkRoom);
-        Place stairs = new Place("Escalier");
+        Place stairs = new Place("Escalier", "Cet escalier en colimasson menne au sommet de la tour.");
         worldPlaces.add(stairs);
+        
+        // Ajout des liens entre les lieux (sorties et clés)
+        Key prisonKey = new Key("Clé de la prison", "Semble pouvoir ouvrir la cellule");
+        defaultPlace.addExit(new LockedExit(longCorridor, "sortie", prisonKey));
+        
+        longCorridor.addExit(new Exit(defaultPlace, "prison"));
+        longCorridor.addExit(new Exit(hall, "hall"));
+        
+        hall.addExit(new Exit(longCorridor, "couloir"));
+        hall.addExit(new Exit(enigmaticRoom, "piece1"));
+        hall.addExit(new Exit(stairs, "escalier"));
+        hall.addExit(new Exit(darkRoom, "piece2"));
+        hall.addExit(new BigDoor(vilburasChamber, "grande_porte"));
+        
+        enigmaticRoom.addExit(new Exit(hall, "Hall"));
+        // Autre sortie ajoutée après avoir réussi l'énigme
+        
+        
     }
     
     public static void main(String[] args) {
         Game game = new Game();
         game.chooseCharacter();
-        game.userAction();
+        game.getDefaultPlace().addCharacter(game.getSelectedHero());
+        while(!game.isQuitting())
+            game.userAction();
     }
 
     public void chooseCharacter() {
@@ -82,7 +119,7 @@ public class Game {
     }
     
     public void userAction(){
-        System.out.println("Que faites-vous ?");
+        System.out.println("\nQue faites-vous ?");
         List<String> command = getUserCommand();
         
         switch (command.get(0)) {
@@ -92,7 +129,7 @@ public class Game {
                         actionGo(command.get(1));
                         break;
                     case 3:
-                        actionGo(command.get(2));
+                        actionGo(command.get(1),command.get(2));
                         break;
                     default:
                         System.out.println("Utilisation : go direction [key]");
@@ -165,7 +202,7 @@ public class Game {
     
     private void actionGo(String doorName){
         Exit exit = null;
-         for(Exit e : ((GameCharacter)selectedHero).getCurrentPlace().getExits()){
+         for(Exit e : selectedHero.getCurrentPlace().getExits()){
              if(e.DOOR_NAME.equals(doorName))
                  exit = e;
          }
@@ -179,7 +216,7 @@ public class Game {
     
     private void actionGo(String doorName, String keyName){
         Exit exit = null;
-        for(Exit e : ((GameCharacter)selectedHero).getCurrentPlace().getExits()){
+        for(Exit e : selectedHero.getCurrentPlace().getExits()){
             if(e.DOOR_NAME.equals(doorName))
                 exit = e;
         }
@@ -188,7 +225,7 @@ public class Game {
         
         if(exit != null && key != null && key instanceof Key){
             System.out.println("Vous accédez à '" + exit.DOOR_NAME + "'");
-            selectedHero.accessExit(exit);
+            selectedHero.accessExit(exit, (Key)key);
         }
         else
             System.out.println("Quelque chose ne correspond pas...");
@@ -202,18 +239,23 @@ public class Game {
     }
     
     private void actionLookAround(){
-        System.out.println("Objets visibles:");
-        for(Item i : ((GameCharacter)selectedHero).getCurrentPlace().getItems())
+        System.out.println("Description de '" + selectedHero.getCurrentPlace().NAME + "':");
+        System.out.println("> Objets visibles:");
+        for(Item i : selectedHero.getCurrentPlace().getItems())
             System.out.println("- " + i.NAME);
-        
-        System.out.println("Sorties visibles:");
-        for(Exit e : ((GameCharacter)selectedHero).getCurrentPlace().getExits())
+        System.out.println("> Personnages visibles:");
+        for(GameCharacter c : selectedHero.getCurrentPlace().getCharacters()){
+            System.out.println("- " + c.NAME);
+        }
+        System.out.println("> Sorties visibles:");
+        for(Exit e : selectedHero.getCurrentPlace().getExits())
             System.out.println("- " + e.DOOR_NAME);
+        System.out.println("");
     }
     
     private void actionLookObject(String objectName){
         Item item = null;
-        List<Item> itemList = ((GameCharacter)selectedHero).getCurrentPlace().getItems();
+        List<Item> itemList = selectedHero.getCurrentPlace().getItems();
         item = Item.getItemByName(itemList,objectName);
         if(item == null)
             System.out.println("Il n'y a pas d'objet '" + objectName + "' dans la pièce");
@@ -223,7 +265,7 @@ public class Game {
     
     private void actionTakeItem(String itemName){
         Item item = null;
-        List<Item> items = ((GameCharacter)selectedHero).getCurrentPlace().getItems();
+        List<Item> items = selectedHero.getCurrentPlace().getItems();
         item = Item.getItemByName(items, itemName);
         if(item == null)
             System.out.println("Il n'y a pas d'objet '" + itemName + "' dans la pièce");
@@ -321,5 +363,17 @@ public class Game {
             chosenCommand.add(word);
         }
         return chosenCommand;
+    }
+
+    public Boolean isQuitting() {
+        return quittingGame;
+    }
+
+    public Place getDefaultPlace() {
+        return defaultPlace;
+    }
+
+    public Hero getSelectedHero() {
+        return selectedHero;
     }
 }

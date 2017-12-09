@@ -9,6 +9,7 @@ public class Chest extends Item {
 
     public Chest() {
         super("Coffre", "Contient des objets", 0, 0, 0, 0);
+        containedItems = new ArrayList<>();
     }
     
     @Override

@@ -6,18 +6,16 @@ import java.util.*;
 
 public abstract class GameCharacter {
 
-    private Place currentPlace;
-    private List<Goal> activableGoals;
-    private GameCharacter fightingCharacter;
+    protected Place currentPlace;
+    protected List<Goal> activableGoals;
     public final String NAME;
-    private final int BASE_HEALTH;
-    private final int BASE_ARMOR;
-    private final int BASE_FORCE;
-    private final int BASE_AGILITY;
+    protected final int BASE_HEALTH;
+    protected final int BASE_ARMOR;
+    protected final int BASE_FORCE;
+    protected final int BASE_AGILITY;
     protected int currentHealth;
-
-    
     protected List<String> dialogues;
+    protected int dialogueCount;
 
     public GameCharacter(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_AGILITY) {
         this.NAME = NAME;
@@ -26,6 +24,10 @@ public abstract class GameCharacter {
         this.BASE_FORCE = BASE_FORCE;
         this.BASE_AGILITY = BASE_AGILITY;
         this.currentHealth = this.BASE_HEALTH;
+        
+        activableGoals = new ArrayList<>();
+        dialogues = new ArrayList<>();
+        dialogueCount = 0;
     }
 
     public int getMaxHealth() 
@@ -65,20 +67,43 @@ public abstract class GameCharacter {
         this.currentHealth += health;
     }
 
-    /**
-     * 
-     * @param c
-     */
     public void talk(GameCharacter c) {
-            // TODO - implement Character.talk
-            throw new UnsupportedOperationException();
+        if(c.isTalkable()){
+            String dialogue = null;
+            dialogue = c.getNextDialogue();
+            if(dialogue != null)
+                System.out.println(NAME + ": \"" + dialogue + "\"");
+        }
+        else{
+            System.out.println("Pas de réponse...");
+        }
+    }
+    
+    public String getNextDialogue(){
+        if(isTalkable()){
+            if(dialogueCount == dialogues.size()-1)
+                return dialogues.get(dialogueCount);
+            else{
+                dialogueCount++;
+                return dialogues.get(dialogueCount);
+            }
+        }
+        return null;
     }
 
     public Place getCurrentPlace() {
         return currentPlace;
     }
 
+    public void setCurrentPlace(Place currentPlace) {
+        this.currentPlace = currentPlace;
+    }
+
     public boolean isTalkable() {
         return !dialogues.isEmpty();
+    }
+    
+    public void addActivableGoal(Goal goal){
+        activableGoals.add(goal);
     }
 }
