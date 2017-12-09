@@ -5,6 +5,7 @@ import item.Consumable;
 import item.Equipment;
 import item.Item;
 import java.util.*;
+import world.Exit;
 
 public abstract class Hero extends GameCharacter {
 
@@ -136,12 +137,12 @@ public abstract class Hero extends GameCharacter {
         inventory.remove(c);
     }
 
-    /**
-     * 
-     * @param c
-     */
     public void fight(Enemy e) {
         Fight fight = new Fight(this, e);
+    }
+    
+    public void accessExit(Exit e){
+        
     }
 
     public List<Item> getInventory() {

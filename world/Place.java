@@ -37,10 +37,16 @@ public class Place {
     public List<GameCharacter> getCharacters() {
         return characters;
     }
+    
+    public void addCharacter(GameCharacter c){
+        characters.add(c);
+    }
 
-    public void setCharacters(List<GameCharacter> characters) {
-        this.characters = characters;
+    public List<Exit> getExits() {
+        return exits;
     }
     
-    
+    public void addExit(Exit e){
+        exits.add(e);
+    }
 }
