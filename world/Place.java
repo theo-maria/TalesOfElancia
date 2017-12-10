@@ -47,6 +47,10 @@ public class Place {
         characters.add(c);
         c.setCurrentPlace(this);
     }
+    
+    public void addItem(Item i){
+        items.add(i);
+    }
 
     public List<Exit> getExits() {
         return exits;

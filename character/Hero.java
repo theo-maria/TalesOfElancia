@@ -5,6 +5,7 @@ import item.Consumable;
 import item.Equipment;
 import item.Item;
 import item.Key;
+import item.ThrowableItem;
 import java.util.*;
 import world.Exit;
 
@@ -30,9 +31,6 @@ public abstract class Hero extends GameCharacter {
      */
     public void takeItem(Item item)
     {
-        super.getCurrentPlace().removeItemFromPlace(item);
-        this.inventory.add(item);
-        item.setRelatedHero(this);
         item.take(this);
     }
 
@@ -128,6 +126,14 @@ public abstract class Hero extends GameCharacter {
             equipItem((Equipment)item);
         else if(item instanceof Consumable)
             ((Consumable) item).use();
+        else if(item instanceof ThrowableItem){
+            if(currentPlace.getCharacters().contains(((ThrowableItem)item).getThrowableOn())){
+                ((ThrowableItem)item).throwItem();
+                inventory.remove(item);
+            }
+        }
+        else
+            System.out.println("Rien ne se passe");
     }
     
     public void useItem(Item item1, Item item2){
@@ -156,5 +162,11 @@ public abstract class Hero extends GameCharacter {
         return inventory;
     }
     
+    public void addItem(Item i){
+        inventory.add(i);
+    }
     
+    public Boolean hasItem(Item i){
+        return inventory.contains(i);
+    }
 }

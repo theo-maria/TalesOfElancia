@@ -13,6 +13,7 @@ public class Item {
     protected final int BONUS_ARMOR;
     protected final int BONUS_FORCE;
     protected final int BONUS_AGILITY;
+    protected Item usableWith;
     
     public Item(String NAME, String DESCRIPTION, int BONUS_HEALTH, 
             int BONUS_ARMOR, int BONUS_FORCE, int BONUS_AGILITY)
@@ -28,6 +29,8 @@ public class Item {
     public void take(Hero hero)
     {
         this.relatedHero = hero;
+        this.relatedHero.getCurrentPlace().removeItemFromPlace(this);
+        this.relatedHero.addItem(this);
     }
 
     public Hero getRelatedHero() 
@@ -66,5 +69,9 @@ public class Item {
                 item = i;
         }
         return item;
+    }
+
+    public void setUsableWith(Item usableWith) {
+        this.usableWith = usableWith;
     }
 }

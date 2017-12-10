@@ -9,8 +9,12 @@ import character.hero.Paladin;
 import character.hero.Sorcerer;
 import character.hero.Thief;
 import character.hero.Warrior;
+import character.npc.Guard;
+import item.Chest;
 import item.Item;
 import item.Key;
+import item.ThrowableItem;
+import item.UnatainableKey;
 import java.util.*;
 import world.BigDoor;
 import world.Exit;
@@ -77,7 +81,8 @@ public class Game {
         worldPlaces.add(stairs);
         
         // Ajout des liens entre les lieux (sorties et clés)
-        Key prisonKey = new Key("Clé de la prison", "Semble pouvoir ouvrir la cellule");
+        Item hook = new Item("crochet","Un crochet. Qui a pu laisser un tel objet ici ?",0,0,0,0);
+        Key prisonKey = new UnatainableKey("cle_prison", "Semble pouvoir ouvrir la cellule", hook);
         defaultPlace.addExit(new LockedExit(longCorridor, "sortie", prisonKey));
         
         longCorridor.addExit(new Exit(defaultPlace, "prison"));
@@ -89,16 +94,25 @@ public class Game {
         hall.addExit(new Exit(darkRoom, "piece2"));
         hall.addExit(new BigDoor(vilburasChamber, "grande_porte"));
         
-        enigmaticRoom.addExit(new Exit(hall, "Hall"));
+        enigmaticRoom.addExit(new Exit(hall, "hall"));
         // Autre sortie ajoutée après avoir réussi l'énigme
         
+        // Ajout des personnages
+        GameCharacter guard = new Guard("garde",prisonKey);
+        defaultPlace.addCharacter(guard);
         
+        // Ajout des objets
+        Item stone = new ThrowableItem("caillou", "Un simple caillou",guard);
+        Item slab = new Chest("dalle");
+        ((Chest)slab).addItem(hook);
+        defaultPlace.addItem(stone);
+        defaultPlace.addItem(slab);
     }
     
     public static void main(String[] args) {
         Game game = new Game();
         game.chooseCharacter();
-        game.getDefaultPlace().addCharacter(game.getSelectedHero());
+        game.introScene();
         while(!game.isQuitting())
             game.userAction();
     }
@@ -116,6 +130,38 @@ public class Game {
         }while(chosenNumber < 1 || chosenNumber > selectableHeroes.size());
         selectedHero = selectableHeroes.get(chosenNumber-1);
         System.out.println("Vous avez choisi d'incarner " + selectedHero.NAME);
+    }
+    
+    public void introScene(){
+        List<String> textes = new ArrayList<>();
+        textes.add("Vous êtes le dernier élu. Tous vos compagnons sont morts au combat.");
+        textes.add("Vous avez pris part à cette guerre afin de libérer le royaume d’Elancia du dernier démon vivant : Vilburas.\n"
+                + "Il se trouve dans le château d’Anor-Mun.");
+        textes.add("Vous rentrez dans le château et votre ennemi se dresse devant vous. Il est la, il vous observe, vous vous préparez à l’attaquer.");
+        textes.add("- Vilburas: Quelle vermine ose pénétrer dans ma demeure ?!");
+        textes.add("- " + selectedHero.NAME + ": Ton règne est désormais fini Vilburas ! Rentre dans ton monde et laisse les miens en paix !");
+        textes.add("- Vilburas: Mwahahahaha ! Tu crois pouvoir me défier, faible mortel ? Laisse moi te montrer une fraction de ma puissance !");
+        textes.add("Vilburas s’approche.");
+        //Ajouter interface de combat
+        textes.add("--- Appuyez pour attaquer ---");
+        textes.add("Vilburas ne prend pas de dégâts...");
+        textes.add("Il ricane, puis vous balaye d'un coup de hâche de guerre.");
+        textes.add("Vous commencez à fléchir des jambes.");
+        textes.add("Vous tombez au sol.");
+        textes.add("Vous ne voyez plus.");
+        textes.add("Vous perdez connaissance...");
+        textes.add("\n\n\n\nVous vous réveillez dûrement, vous avez mal partout.");
+        textes.add("Vous êtes enfermé dans une cellule. Trouvez un moyen de vous échapper.");
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("--- Appuyez sur Entrée pour lire les dialogues ---");
+        while(!sc.nextLine().equals("")){}
+        for(String texte : textes){
+            System.out.println(texte);
+            while(!sc.nextLine().equals("")){}
+        }
+        
+        defaultPlace.addCharacter(selectedHero);
     }
     
     public void userAction(){
@@ -200,6 +246,25 @@ public class Game {
         }
     }
     
+    public List<String> getUserCommand(){
+        List<String> chosenCommand = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        String textCommand = "";
+        String firstWord = "";
+        do{
+            System.out.println("Entrez une commande valide:");
+            textCommand = sc.nextLine();
+            firstWord = textCommand.split(" ", 2)[0];
+            if(!commands.containsKey(firstWord))
+                System.out.println("Commande '" + firstWord + "' non reconnue");
+        }while(!commands.containsKey(firstWord));
+        
+        for(String word : textCommand.split(" ")){
+            chosenCommand.add(word);
+        }
+        return chosenCommand;
+    }
+    
     private void actionGo(String doorName){
         Exit exit = null;
          for(Exit e : selectedHero.getCurrentPlace().getExits()){
@@ -216,7 +281,9 @@ public class Game {
     
     private void actionGo(String doorName, String keyName){
         Exit exit = null;
-        for(Exit e : selectedHero.getCurrentPlace().getExits()){
+        for(Exit e : selectedHero
+                .getCurrentPlace()
+                .getExits()){
             if(e.DOOR_NAME.equals(doorName))
                 exit = e;
         }
@@ -270,8 +337,8 @@ public class Game {
         if(item == null)
             System.out.println("Il n'y a pas d'objet '" + itemName + "' dans la pièce");
         else{
-            selectedHero.takeItem(item);
             System.out.println("Vous ramassez l'objet '" + item.NAME + "'");
+            selectedHero.takeItem(item);
         }
     }
     
@@ -295,8 +362,8 @@ public class Game {
     private void actionUseItem(String itemName){
         Item item = Item.getItemByName(selectedHero.getInventory(), itemName);
         if(item != null){
-            selectedHero.useItem(item);
             System.out.println("Vous utilisez l'objet '" + item.NAME + "'");
+            selectedHero.useItem(item);
         }
         else{
             System.out.println("Vous ne possédez pas l'objet '" + itemName + "'");
@@ -346,25 +413,6 @@ public class Game {
                 System.out.println("Il n'y a pas de personne nommée '" + characterName + "' aux alentours");
     }
     
-    public List<String> getUserCommand(){
-        List<String> chosenCommand = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
-        String textCommand = "";
-        String firstWord = "";
-        do{
-            System.out.println("Entrez une commande valide:");
-            textCommand = sc.nextLine();
-            firstWord = textCommand.split(" ", 2)[0];
-            if(!commands.containsKey(firstWord))
-                System.out.println("Commande '" + firstWord + "' non reconnue");
-        }while(!commands.containsKey(firstWord));
-        
-        for(String word : textCommand.split(" ")){
-            chosenCommand.add(word);
-        }
-        return chosenCommand;
-    }
-
     public Boolean isQuitting() {
         return quittingGame;
     }
