@@ -18,7 +18,9 @@ import item.Key;
 import item.SoldItem;
 import item.ThrowableItem;
 import item.UnatainableKey;
+import item.equipment.Armor;
 import item.equipment.Glasses;
+import item.equipment.Ring;
 import java.util.*;
 import world.BigDoor;
 import world.Exit;
@@ -149,8 +151,12 @@ public class Game {
         defaultPlace.addItem(stone);
         defaultPlace.addItem(slab);
         
-        Glasses nightVisionGlasses = new Glasses("lunettes_vision_nocturne", "Des lunettes qui permettent de voir dans le noir", 0, 0, 0, 0);
-        merchant.addSoldItem(new SoldItem(nightVisionGlasses, killGan));
+        Glasses nightVisionGlasses = new Glasses("lunettes_vision_nocturne", "Des lunettes qui permettent de voir dans le noir", 5, 0, 0, 5);
+        merchant.addSoldItem(new SoldItem(nightVisionGlasses, killBeelzum));
+        Armor legendaryArmor = new Armor("armure_legendaire", "Une armure dont émane une puissante aura. Elle vous donne un air supérieur.",10,5,5,5);
+        merchant.addSoldItem(new SoldItem(legendaryArmor, killGan));
+        Ring trueSightRing = new Ring("anneau_vision","Une anneau vous donnant la vraie vision",5,3,3,3);
+        merchant.addSoldItem(new SoldItem(trueSightRing, killGotza));
     }
     
     public static void main(String[] args) {

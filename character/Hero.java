@@ -127,7 +127,7 @@ public abstract class Hero extends GameCharacter {
         else if(item instanceof Consumable)
             ((Consumable) item).use();
         else if(item instanceof ThrowableItem){
-            if(currentPlace.getCharacters().contains(((ThrowableItem)item).getThrowableOn())){
+            if(currentPlace.hasCharacter((GameCharacter) ((ThrowableItem)item).getThrowableOn())){
                 ((ThrowableItem)item).throwItem();
                 inventory.remove(item);
             }

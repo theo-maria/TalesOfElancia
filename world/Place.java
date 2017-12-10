@@ -50,6 +50,10 @@ public class Place {
         c.setCurrentPlace(this);
     }
     
+    public Boolean hasCharacter(GameCharacter c){
+        return characters.contains(c);
+    }
+    
     public void removeCharacter(GameCharacter c){
         characters.remove(c);
     }
