@@ -15,7 +15,6 @@ public abstract class GameCharacter {
     protected final int BASE_AGILITY;
     protected int currentHealth;
     protected List<String> dialogues;
-    protected int dialogueCount;
 
     public GameCharacter(String NAME, int BASE_HEALTH, int BASE_ARMOR, int BASE_FORCE, int BASE_AGILITY) {
         this.NAME = NAME;
@@ -27,7 +26,16 @@ public abstract class GameCharacter {
         
         activableGoals = new ArrayList<>();
         dialogues = new ArrayList<>();
-        dialogueCount = 0;
+    }
+    
+    public void talk(Hero heroTalking){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("--- Appuyez sur Entrée pour lire les dialogues ---");
+        while(!sc.nextLine().equals("")){}
+        for(String texte : dialogues){
+            System.out.println("- " + NAME + ": " + texte);
+            while(!sc.nextLine().equals("")){}
+        }
     }
 
     public int getMaxHealth() 
@@ -65,30 +73,6 @@ public abstract class GameCharacter {
     public void setCurrentHealth(int health)
     {
         this.currentHealth += health;
-    }
-
-    public void talk(GameCharacter c) {
-        if(c.isTalkable()){
-            String dialogue = null;
-            dialogue = c.getNextDialogue();
-            if(dialogue != null)
-                System.out.println(NAME + ": \"" + dialogue + "\"");
-        }
-        else{
-            System.out.println("Pas de réponse...");
-        }
-    }
-    
-    public String getNextDialogue(){
-        if(isTalkable()){
-            if(dialogueCount == dialogues.size()-1)
-                return dialogues.get(dialogueCount);
-            else{
-                dialogueCount++;
-                return dialogues.get(dialogueCount);
-            }
-        }
-        return null;
     }
 
     public Place getCurrentPlace() {

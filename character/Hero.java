@@ -145,6 +145,15 @@ public abstract class Hero extends GameCharacter {
         activatedItems.add(c);
         inventory.remove(c);
     }
+    
+    public void talkTo(GameCharacter c) {
+        if(c.isTalkable()){
+            c.talk(this);
+        }
+        else{
+            System.out.println("Pas de réponse...");
+        }
+    }
 
     public void fight(Enemy e) {
         Fight fight = new Fight(this, e);

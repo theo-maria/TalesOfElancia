@@ -3,16 +3,28 @@ package item;
 
 import game.Goal;
 
-public class SoldItem extends Item {
+public class SoldItem{
 
     private Goal necessaryGoal;
+    private Item relatedItem;
 
-    public SoldItem(String NAME, String DESCRIPTION, int BONUS_HEALTH, int BONUS_ARMOR, int BONUS_FORCE, int BONUS_AGILITY) {
-        super(NAME, DESCRIPTION, BONUS_HEALTH, BONUS_ARMOR, BONUS_FORCE, BONUS_AGILITY);
+    public SoldItem(Item relatedItem, Goal necessaryGoal) {
+        this.relatedItem = relatedItem;
+        this.necessaryGoal = necessaryGoal;
     }
     
     public Boolean isSellable()
     {
         return this.necessaryGoal.isAchieved();
+    }
+    
+    public Item retrieveItem(){
+        if(necessaryGoal.isAchieved())
+            return relatedItem;
+        return null;
+    }
+    
+    public String getItemName(){
+        return relatedItem.NAME;
     }
 }

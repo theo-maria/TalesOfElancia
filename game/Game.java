@@ -10,11 +10,15 @@ import character.hero.Sorcerer;
 import character.hero.Thief;
 import character.hero.Warrior;
 import character.npc.Guard;
+import character.npc.Merchant;
+import character.npc.OldWoman;
 import item.Chest;
 import item.Item;
 import item.Key;
+import item.SoldItem;
 import item.ThrowableItem;
 import item.UnatainableKey;
+import item.equipment.Glasses;
 import java.util.*;
 import world.BigDoor;
 import world.Exit;
@@ -22,6 +26,7 @@ import world.LockedExit;
 
 public class Game {
 
+    private Goal mainGoal;
     private List<Goal> gameGoals;
     private List<Hero> selectableHeroes;
     private List<Place> worldPlaces;
@@ -54,31 +59,43 @@ public class Game {
         
         // Ajout des objectifs du jeu
         gameGoals = new ArrayList<>();
-        Goal killVilburas = new Goal();
+        Goal killVilburas = new Goal("Tuer Vilburas");
+        mainGoal = killVilburas;
         gameGoals.add(killVilburas);
+        Goal killGan = new Goal("Tuer Gan");
+        gameGoals.add(killGan);
+        Goal killBeelzum = new Goal("Tuer Beelzum");
+        gameGoals.add(killBeelzum);
+        Goal killGotza = new Goal("Tuer Gotza");
+        gameGoals.add(killGotza);
         
         // Ajout des lieux du jeu
         worldPlaces = new ArrayList<>();
         defaultPlace = new Place("Prison", "Vous avez été placé dans cette cellule humide");
         worldPlaces.add(defaultPlace);
-        Place longCorridor = new Place("Long couloir", "Ce long couloir ");
+        Place longCorridor = new Place("Long couloir", "Une fois sorti de la cellule, vous errez dans ce long couloir "
+                + "pendant des heures et des heures. Vous commencez à perdre espoir quand, tout à coup, "
+                + "une vieille dame apparaît...");
         worldPlaces.add(longCorridor);
         Place hall = new Place("Hall Central", "Cette gigantesque pièce semble être le centre du château.");
         worldPlaces.add(hall);
-        Place gotzaRoom = new Place("Repère de Gotza", "");
+        Place gotzaRoom = new Place("Repère de Gotza", "Repère de Gotza, maître de la nuit");
         worldPlaces.add(gotzaRoom);
-        Place beelzumRoom = new Place("Repère de Beelzum", "");
+        Place beelzumRoom = new Place("Repère de Beelzum", "Repère de Beelzum, maître des tempêtes");
         worldPlaces.add(beelzumRoom);
-        Place ganRoom = new Place("Repère de Gan", "");
+        Place ganRoom = new Place("Repère de Gan", "Repère de Gan, maître de la foudre");
         worldPlaces.add(ganRoom);
         Place vilburasChamber = new Place("Chambre de Vilburas", "Vous êtes dans la chambre du maître des lieux. Cette fois, pas de deuxième chance. Soyez sûr d'être prêt !");
         worldPlaces.add(vilburasChamber);
         Place enigmaticRoom = new Place("Pièce énigmatique", "Cette pièce vous donne un terrible mal de crâne.");
         worldPlaces.add(enigmaticRoom);
         Place darkRoom = new Place("Pièce sombre", "Même un chat n'oserait pas s'aventurer dans un lieu aussi sombre...");
+        darkRoom.setDarkness(true);
         worldPlaces.add(darkRoom);
         Place stairs = new Place("Escalier", "Cet escalier en colimasson menne au sommet de la tour.");
         worldPlaces.add(stairs);
+        Place secretShop = new Place("Magasin Secret", "Un magasin caché dans le château. Qui peut bien venir faire ses emplettes ici ?");
+        worldPlaces.add(secretShop);
         
         // Ajout des liens entre les lieux (sorties et clés)
         Item hook = new Item("crochet","Un crochet. Qui a pu laisser un tel objet ici ?",0,0,0,0);
@@ -86,7 +103,6 @@ public class Game {
         defaultPlace.addExit(new LockedExit(longCorridor, "sortie", prisonKey));
         
         longCorridor.addExit(new Exit(defaultPlace, "prison"));
-        longCorridor.addExit(new Exit(hall, "hall"));
         
         hall.addExit(new Exit(longCorridor, "couloir"));
         hall.addExit(new Exit(enigmaticRoom, "piece1"));
@@ -95,11 +111,36 @@ public class Game {
         hall.addExit(new BigDoor(vilburasChamber, "grande_porte"));
         
         enigmaticRoom.addExit(new Exit(hall, "hall"));
-        // Autre sortie ajoutée après avoir réussi l'énigme
+        // Autre sortie vers le repère de Gan ajoutée après avoir réussi l'énigme
+        
+        ganRoom.addExit(new Exit(enigmaticRoom,"enigmatic_room"));
+        
+        stairs.addExit(new Exit(hall, "hall"));
+        stairs.addExit(new Exit(beelzumRoom, "repere_beelzum"));
+        Key strangeKey = new Key("strange_key", "Une clé à la forme étrange. A quoi peut-elle bien servir ?");
+        stairs.addExit(new LockedExit(secretShop, "secret_shop", strangeKey));
+        
+        secretShop.addExit(new Exit(stairs, "escalier"));
+        
+        beelzumRoom.addExit(new Exit(stairs,"escalier"));
+        
+        darkRoom.addExit(new Exit(hall, "hall"));
+        darkRoom.addExit(new Exit(gotzaRoom, "repere_gotza"));
+        
+        gotzaRoom.addExit(new Exit(darkRoom, "piece_sombre"));
+        
+        vilburasChamber.addExit(new Exit(hall, "hall"));
+        
         
         // Ajout des personnages
         GameCharacter guard = new Guard("garde",prisonKey);
         defaultPlace.addCharacter(guard);
+        
+        GameCharacter oldWoman = new OldWoman(strangeKey, hall);
+        longCorridor.addCharacter(oldWoman);
+        
+        Merchant merchant = new Merchant();
+        secretShop.addCharacter(merchant);
         
         // Ajout des objets
         Item stone = new ThrowableItem("caillou", "Un simple caillou",guard);
@@ -107,13 +148,17 @@ public class Game {
         ((Chest)slab).addItem(hook);
         defaultPlace.addItem(stone);
         defaultPlace.addItem(slab);
+        
+        Glasses nightVisionGlasses = new Glasses("lunettes_vision_nocturne", "Des lunettes qui permettent de voir dans le noir", 0, 0, 0, 0);
+        merchant.addSoldItem(new SoldItem(nightVisionGlasses, killGan));
     }
     
     public static void main(String[] args) {
+        System.out.println("======= BIENVENUE DANS TALES OF ELANCIA =======");
         Game game = new Game();
         game.chooseCharacter();
         game.introScene();
-        while(!game.isQuitting())
+        while(!game.isQuitting() && !game.isMainGoalAchieved())
             game.userAction();
     }
 
@@ -307,12 +352,14 @@ public class Game {
     
     private void actionLookAround(){
         System.out.println("Description de '" + selectedHero.getCurrentPlace().NAME + "':");
+        System.out.println(selectedHero.getCurrentPlace().DESCRIPTION);
         System.out.println("> Objets visibles:");
         for(Item i : selectedHero.getCurrentPlace().getItems())
             System.out.println("- " + i.NAME);
         System.out.println("> Personnages visibles:");
         for(GameCharacter c : selectedHero.getCurrentPlace().getCharacters()){
-            System.out.println("- " + c.NAME);
+            if(c!=selectedHero)
+                System.out.println("- " + c.NAME);
         }
         System.out.println("> Sorties visibles:");
         for(Exit e : selectedHero.getCurrentPlace().getExits())
@@ -331,7 +378,7 @@ public class Game {
     }
     
     private void actionTakeItem(String itemName){
-        Item item = null;
+        Item item;
         List<Item> items = selectedHero.getCurrentPlace().getItems();
         item = Item.getItemByName(items, itemName);
         if(item == null)
@@ -407,7 +454,7 @@ public class Game {
             }
             if(character != null){
                 System.out.println("Vous engagez la conversation avec '" + character.NAME + "'");
-                selectedHero.talk(character);
+                selectedHero.talkTo(character);
             }
              else
                 System.out.println("Il n'y a pas de personne nommée '" + characterName + "' aux alentours");
@@ -415,6 +462,10 @@ public class Game {
     
     public Boolean isQuitting() {
         return quittingGame;
+    }
+    
+    public Boolean isMainGoalAchieved(){
+        return mainGoal.isAchieved();
     }
 
     public Place getDefaultPlace() {

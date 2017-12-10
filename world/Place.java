@@ -44,8 +44,14 @@ public class Place {
     }
     
     public void addCharacter(GameCharacter c){
+        if(c.getCurrentPlace() != null)
+            c.getCurrentPlace().removeCharacter(c);
         characters.add(c);
         c.setCurrentPlace(this);
+    }
+    
+    public void removeCharacter(GameCharacter c){
+        characters.remove(c);
     }
     
     public void addItem(Item i){
