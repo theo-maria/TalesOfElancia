@@ -5,6 +5,10 @@ import character.GameCharacter;
 import character.hero.Archer;
 import world.Place;
 import character.Hero;
+import character.enemy.Beelzum;
+import character.enemy.Gan;
+import character.enemy.Gotza;
+import character.enemy.Vilburas;
 import character.hero.Paladin;
 import character.hero.Sorcerer;
 import character.hero.Thief;
@@ -119,8 +123,8 @@ public class Game {
         
         stairs.addExit(new Exit(hall, "hall"));
         stairs.addExit(new Exit(beelzumRoom, "repere_beelzum"));
-        Key strangeKey = new Key("strange_key", "Une clé à la forme étrange. A quoi peut-elle bien servir ?");
-        stairs.addExit(new LockedExit(secretShop, "secret_shop", strangeKey));
+        Key strangeKey = new Key("cle_etrange", "Une clé à la forme étrange. A quoi peut-elle bien servir ?");
+        stairs.addExit(new LockedExit(secretShop, "magasin_secret", strangeKey));
         
         secretShop.addExit(new Exit(stairs, "escalier"));
         
@@ -144,6 +148,20 @@ public class Game {
         Merchant merchant = new Merchant();
         secretShop.addCharacter(merchant);
         
+        // Ajout des ennemis
+        Gan gan = new Gan();
+        gan.addActivableGoal(killGan);
+        ganRoom.addCharacter(gan);
+        Beelzum beelzum = new Beelzum();
+        beelzum.addActivableGoal(killBeelzum);
+        beelzumRoom.addCharacter(beelzum);
+        Gotza gotza = new Gotza();
+        gotza.addActivableGoal(killGotza);
+        gotzaRoom.addCharacter(gotza);
+        Vilburas vilburas = new Vilburas();
+        vilburas.addActivableGoal(killVilburas);
+        vilburasChamber.addCharacter(vilburas);
+        
         // Ajout des objets
         Item stone = new ThrowableItem("caillou", "Un simple caillou",guard);
         Item slab = new Chest("dalle");
@@ -164,8 +182,12 @@ public class Game {
         Game game = new Game();
         game.chooseCharacter();
         game.introScene();
-        while(!game.isQuitting() && !game.isMainGoalAchieved())
+        while(!game.isQuitting() && !game.isMainGoalAchieved() && game.isHeroAlive())
             game.userAction();
+        if(!game.isHeroAlive())
+            System.out.println("Vous avez échoué. GAME OVER.");
+        else if(game.isMainGoalAchieved())
+            System.out.println("Félicitations ! Vous avez sauvé le monde de l'ignoble Vilburas !");
     }
 
     public void chooseCharacter() {
@@ -218,7 +240,7 @@ public class Game {
     public void userAction(){
         System.out.println("\nQue faites-vous ?");
         List<String> command = getUserCommand();
-        
+        System.out.println("\n\n\n=====================================");
         switch (command.get(0)) {
             case "go":
                 switch(command.size()){
@@ -472,6 +494,10 @@ public class Game {
     
     public Boolean isMainGoalAchieved(){
         return mainGoal.isAchieved();
+    }
+    
+    public Boolean isHeroAlive(){
+        return selectedHero.isAlive();
     }
 
     public Place getDefaultPlace() {

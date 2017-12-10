@@ -6,6 +6,7 @@
 package character.enemy;
 
 import character.Enemy;
+import character.Hero;
 
 /**
  *
@@ -14,7 +15,12 @@ import character.Enemy;
 public class Vilburas extends Enemy {
     
     public Vilburas() {
-        super("Vilburas", 100, 3, 20, 10);
+        super("Vilburas", "Maître des lieux", 100, 3, 20, 10, 20);
     }
-    
+
+    @Override
+    public void specialAttack(Hero hero) {
+        System.out.println("Attaque spéciale: Vilburas regagne de la vie !");
+        currentHealth+=10;
+    }
 }

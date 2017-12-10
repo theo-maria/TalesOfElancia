@@ -6,6 +6,7 @@
 package character.enemy;
 
 import character.Enemy;
+import character.Hero;
 
 /**
  *
@@ -14,7 +15,13 @@ import character.Enemy;
 public class Gan extends Enemy {
     
     public Gan() {
-        super("Gan", 70, 8, 5, 3);
+        super("Gan", "Maître de la foudre", 70, 8, 5, 3, 15);
+    }
+
+    @Override
+    public void specialAttack(Hero hero) {
+        System.out.println("Attaque spéciale: Gan vous frappe de sa foudre puissante !");
+        hero.damage(getTotalForce()+5);
     }
     
 }

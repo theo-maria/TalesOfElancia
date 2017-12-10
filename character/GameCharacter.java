@@ -63,7 +63,17 @@ public abstract class GameCharacter {
     }
     
     public void damage(int damageValue){
-        
+        Random r = new Random();
+        int chanceEsquive = r.nextInt(99)+1;
+        if(chanceEsquive <= getTotalAgility())
+            System.out.println(NAME + " esquive le coup !");
+        else{
+            int viePerdue = damageValue - getTotalArmor();
+            if(viePerdue < 0)
+                viePerdue = 0;
+            System.out.println(NAME + " perd " + viePerdue + " points de vie");
+            currentHealth-=viePerdue;
+        }
     }
 
     public int getCurrentHealth() {

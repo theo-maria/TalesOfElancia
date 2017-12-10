@@ -6,6 +6,7 @@
 package character.enemy;
 
 import character.Enemy;
+import character.Hero;
 
 /**
  *
@@ -14,7 +15,14 @@ import character.Enemy;
 public class Beelzum extends Enemy {
     
     public Beelzum() {
-        super("Beelzum", 60, 6, 9, 15);
+        super("Beelzum", "Maître des tempêtes", 60, 6, 9, 15, 15);
+    }
+
+    @Override
+    public void specialAttack(Hero hero) {
+        System.out.println("Attaque spéciale: Beelzum fait 2 attaques d'affilé !");
+        hero.damage(getTotalForce());
+        hero.damage(getTotalForce());
     }
     
 }

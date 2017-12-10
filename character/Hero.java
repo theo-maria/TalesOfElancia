@@ -8,6 +8,7 @@ import item.Key;
 import item.ThrowableItem;
 import java.util.*;
 import world.Exit;
+import world.Place;
 
 public abstract class Hero extends GameCharacter {
 
@@ -157,18 +158,32 @@ public abstract class Hero extends GameCharacter {
 
     public void fight(Enemy e) {
         Fight fight = new Fight(this, e);
+        fight.startFight();
     }
     
     public void accessExit(Exit exit){
-        currentPlace = exit.accessExit();
+        Place p = exit.accessExit();
+        if(p != null)
+            currentPlace = p;
     }
     
     public void accessExit(Exit exit, Key key){
-        currentPlace = exit.accessExit(key);
+        Place p = exit.accessExit(key);
+        if(p != null)
+            currentPlace = p;
     }
 
     public List<Item> getInventory() {
         return inventory;
+    }
+    
+    public List<Consumable> getConsumableItems(){
+        List<Consumable> liste = new ArrayList<>();
+        for(Item i : getInventory()){
+            if(i instanceof Consumable)
+                liste.add((Consumable)i);
+        }
+        return liste;
     }
     
     public void addItem(Item i){
@@ -177,5 +192,9 @@ public abstract class Hero extends GameCharacter {
     
     public Boolean hasItem(Item i){
         return inventory.contains(i);
+    }
+    
+    public void clearBuffs(){
+        activatedItems.clear();
     }
 }

@@ -6,6 +6,7 @@
 package character.enemy;
 
 import character.Enemy;
+import character.Hero;
 
 /**
  *
@@ -13,8 +14,23 @@ import character.Enemy;
  */
 public class Gotza extends Enemy {
     
+    private int agility_bonus;
+    
     public Gotza() {
-        super("Gotza", 50, 5, 7, 10);
+        super("Gotza", "Maître de la nuit", 50, 5, 7, 10, 10);
+        agility_bonus = 0;
+    }
+
+    @Override
+    public void specialAttack(Hero hero) {
+        System.out.println("Attaque spéciale: Gotza assombri la pièce, il est plus difficile à atteindre !");
+        agility_bonus += 10;
+    }
+    
+    @Override
+    public int getTotalAgility() 
+    {
+        return this.BASE_AGILITY + agility_bonus;
     }
     
 }
