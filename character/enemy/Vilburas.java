@@ -15,7 +15,7 @@ import character.Hero;
 public class Vilburas extends Enemy {
     
     public Vilburas() {
-        super("Vilburas", "Maître des lieux", 100, 3, 20, 10, 20);
+        super("Vilburas", "Maître des lieux", 100, 4, 20, 10, 20);
     }
 
     @Override

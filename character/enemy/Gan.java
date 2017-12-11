@@ -15,7 +15,7 @@ import character.Hero;
 public class Gan extends Enemy {
     
     public Gan() {
-        super("Gan", "Maître de la foudre", 70, 8, 5, 3, 15);
+        super("Gan", "Maître de la foudre", 70, 4, 5, 3, 15);
     }
 
     @Override

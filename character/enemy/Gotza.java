@@ -17,7 +17,7 @@ public class Gotza extends Enemy {
     private int agility_bonus;
     
     public Gotza() {
-        super("Gotza", "Maître de la nuit", 50, 5, 7, 10, 10);
+        super("Gotza", "Maître de la nuit", 50, 3, 7, 10, 10);
         agility_bonus = 0;
     }
 

@@ -58,7 +58,7 @@ public class Fight {
             choixAction = sc.nextInt();
         }while(choixAction != 1 && choixAction != 2);
         if(choixAction == 1){
-            enemy.damage(hero.getTotalForce());
+            hero.attack(enemy);
         }
         else{
             int choixObjet;
@@ -88,7 +88,7 @@ public class Fight {
         else
         {
             System.out.println("\n" + enemy.NAME + " lance une attaque de base \n");
-            hero.damage(enemy.getTotalForce());
+            enemy.attack(hero);
         }
     }
 }

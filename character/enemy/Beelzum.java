@@ -15,7 +15,7 @@ import character.Hero;
 public class Beelzum extends Enemy {
     
     public Beelzum() {
-        super("Beelzum", "Maître des tempêtes", 60, 6, 9, 15, 15);
+        super("Beelzum", "Maître des tempêtes", 60, 2, 9, 15, 15);
     }
 
     @Override

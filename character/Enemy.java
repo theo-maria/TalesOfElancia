@@ -26,7 +26,10 @@ public abstract class Enemy extends GameCharacter {
             for(Goal g : activableGoals)
                 g.achieve();
         }
-            
+    }
+    
+    public void attack(Hero hero){
+        hero.damage(this.getTotalForce());
     }
     
 }

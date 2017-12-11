@@ -161,6 +161,10 @@ public abstract class Hero extends GameCharacter {
         fight.startFight();
     }
     
+    public void attack(Enemy enemy){
+        enemy.damage(this.getTotalForce());
+    }
+    
     public void accessExit(Exit exit){
         Place p = exit.accessExit();
         if(p != null)
