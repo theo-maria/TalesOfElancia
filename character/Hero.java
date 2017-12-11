@@ -76,6 +76,8 @@ public abstract class Hero extends GameCharacter {
                 }
             }
         }
+        for(Consumable c : activatedItems)
+            healthBonus+=c.getBONUS_HEALTH();
 
         return super.getMaxHealth() + healthBonus;   
     }
@@ -98,6 +100,9 @@ public abstract class Hero extends GameCharacter {
                 }
             }
         }
+        
+        for(Consumable c : activatedItems)
+            armorBonus+=c.getBONUS_ARMOR();
 
         return super.getTotalArmor() + armorBonus;
     }
@@ -120,6 +125,9 @@ public abstract class Hero extends GameCharacter {
                 }
             }
         }
+        
+        for(Consumable c : activatedItems)
+            forceBonus+=c.getBONUS_FORCE();
 
         return super.getTotalForce() + forceBonus;
     }
@@ -142,6 +150,10 @@ public abstract class Hero extends GameCharacter {
                 }
             }
         }
+        
+        for(Consumable c : activatedItems)
+            agilityBonus+=c.getBONUS_AGILITY();
+        
         return super.getTotalAgility() + agilityBonus;
     }
 

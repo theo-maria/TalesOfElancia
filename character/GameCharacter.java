@@ -189,4 +189,17 @@ public abstract class GameCharacter {
     public void addActivableGoal(Goal goal){
         activableGoals.add(goal);
     }
+    
+    /**
+     * Permet de donner (ou enlever) de la vie à un personnage
+     * @param healValue valeur de vie
+     */
+    public void heal(int healValue){
+        if(currentHealth+healValue > getMaxHealth())
+            currentHealth = getMaxHealth();
+        else if(currentHealth+healValue < 0)
+            currentHealth = 0;
+        else
+            currentHealth+=healValue;
+    }
 }
