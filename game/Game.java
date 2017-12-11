@@ -29,6 +29,7 @@ import java.util.*;
 import world.BigDoor;
 import world.Exit;
 import world.LockedExit;
+import world.PuzzleDoor;
 
 public class Game {
 
@@ -77,7 +78,7 @@ public class Game {
         
         // Ajout des lieux du jeu
         worldPlaces = new ArrayList<>();
-        defaultPlace = new Place("Prison", "Vous avez été placé dans cette cellule humide");
+        defaultPlace = new Place("Prison", "Vous avez été placé dans cette cellule humide.\nUn garde est là mais ne vous regarde pas.\nSur le mur est gravé '1337.'");
         worldPlaces.add(defaultPlace);
         Place longCorridor = new Place("Long couloir", "Une fois sorti de la cellule, vous errez dans ce long couloir "
                 + "pendant des heures et des heures. Vous commencez à perdre espoir quand, tout à coup, "
@@ -117,7 +118,7 @@ public class Game {
         hall.addExit(new BigDoor(vilburasChamber, "grande_porte"));
         
         enigmaticRoom.addExit(new Exit(hall, "hall"));
-        // Autre sortie vers le repère de Gan ajoutée après avoir réussi l'énigme
+        enigmaticRoom.addExit(new PuzzleDoor(ganRoom, "repere_gan", "Quel est le nombre à 4 chiffres qui vous vient instinctivement en tête ?", "1337"));
         
         ganRoom.addExit(new Exit(enigmaticRoom,"enigmatic_room"));
         

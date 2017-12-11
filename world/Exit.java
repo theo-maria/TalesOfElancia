@@ -17,6 +17,6 @@ public class Exit {
     
     public Place accessExit(Key key){
         System.out.println("La clé n'est pas nécessaire, vous ouvrez la porte sans problème.");
-        return ledPlace;
+        return accessExit();
     }
 }
