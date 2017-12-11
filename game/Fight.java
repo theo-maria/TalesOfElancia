@@ -32,6 +32,7 @@ public class Fight {
         System.out.println("\nQue le combat commence !!!\n");
         while(hero.isAlive() && enemy.isAlive())
         {
+            System.out.println("");
             System.out.println(hero.NAME + ":");
             System.out.println("Vie: " + hero.getCurrentHealth());
             System.out.println(enemy.NAME + ":");

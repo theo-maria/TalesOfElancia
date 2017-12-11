@@ -32,16 +32,60 @@ import world.LockedExit;
 import world.PuzzleDoor;
 
 public class Game {
-
+    /**
+     * Objectif principal de la partie.
+     */
     private Goal mainGoal;
+    /**
+     * Liste des objectifs de la partie.
+     */
     private List<Goal> gameGoals;
+    /**
+     * Liste des héros sélectionnables par le joueur.
+     */
     private List<Hero> selectableHeroes;
+    /**
+     * Liste des lieux du jeu.
+     */
     private List<Place> worldPlaces;
+    /**
+     * Lieu par défaut, celui dans lequel le joueur commence la partie.
+     */
     private Place defaultPlace;
+    /**
+     * Héros sélectionné par le joueur.
+     */
     private Hero selectedHero;
+    /**
+     * Liste des commandes utilisateur, ainsi que leur descriptif.
+     */
     private Map<String,String> commands;
+    /**
+     * Indique si le jeu est sur le point d'être quitté.
+     */
     private Boolean quittingGame;
 
+    
+    /**
+     * Programme principal, démarre une nouvelle partie.
+     * @param args
+     */
+    public static void main(String[] args) {
+        System.out.println("======= BIENVENUE DANS TALES OF ELANCIA =======");
+        Game game = new Game();
+        game.chooseCharacter();
+        game.introScene();
+        while(!game.isQuitting() && !game.isMainGoalAchieved() && game.isHeroAlive())
+            game.userAction();
+        if(!game.isHeroAlive())
+            System.out.println("Vous avez échoué. GAME OVER.");
+        else if(game.isMainGoalAchieved())
+            System.out.println("Félicitations ! Vous avez sauvé le monde de l'ignoble Vilburas !");
+    }
+    
+    /**
+     * Constructeur d'une partie. Instancie tous les objets nécessaires au fonctionnement de la partie.
+     */
     public Game() {
         quittingGame = false;
         
@@ -178,19 +222,9 @@ public class Game {
         merchant.addSoldItem(new SoldItem(trueSightRing, killGotza));
     }
     
-    public static void main(String[] args) {
-        System.out.println("======= BIENVENUE DANS TALES OF ELANCIA =======");
-        Game game = new Game();
-        game.chooseCharacter();
-        game.introScene();
-        while(!game.isQuitting() && !game.isMainGoalAchieved() && game.isHeroAlive())
-            game.userAction();
-        if(!game.isHeroAlive())
-            System.out.println("Vous avez échoué. GAME OVER.");
-        else if(game.isMainGoalAchieved())
-            System.out.println("Félicitations ! Vous avez sauvé le monde de l'ignoble Vilburas !");
-    }
-
+    /**
+     * Permet de demander au joueur de choisir un personnage.
+     */
     public void chooseCharacter() {
         System.out.println("Voici la liste des personnages:");
         for(int i=0;i<selectableHeroes.size();i++){
@@ -206,6 +240,9 @@ public class Game {
         System.out.println("Vous avez choisi d'incarner " + selectedHero.NAME);
     }
     
+    /**
+     * Permet de dérouler la scène d'introduction du jeu.
+     */
     public void introScene(){
         List<String> textes = new ArrayList<>();
         textes.add("Vous êtes le dernier élu. Tous vos compagnons sont morts au combat.");
@@ -238,6 +275,9 @@ public class Game {
         defaultPlace.addCharacter(selectedHero);
     }
     
+    /**
+     * Permet de demander au joueur quelle action il veut effectuer, et de déterminer l'action à effectuer en fonction de la commande retournée.
+     */
     public void userAction(){
         System.out.println("\nQue faites-vous ?");
         List<String> command = getUserCommand();
@@ -320,6 +360,10 @@ public class Game {
         }
     }
     
+    /**
+     * Permet de récupérer une commande de l'utilisateur
+     * @return la commande séparée en mots qui correspondent aux paramètres de la commande
+     */
     public List<String> getUserCommand(){
         List<String> chosenCommand = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
@@ -328,6 +372,7 @@ public class Game {
         do{
             System.out.println("Entrez une commande valide:");
             textCommand = sc.nextLine();
+            // Récupère le premier mot de la ligne
             firstWord = textCommand.split(" ", 2)[0];
             if(!commands.containsKey(firstWord))
                 System.out.println("Commande '" + firstWord + "' non reconnue");
@@ -339,6 +384,10 @@ public class Game {
         return chosenCommand;
     }
     
+    /**
+     * Permet de tenter d'accéder à une porte sans clé
+     * @param doorName nom de la porte
+     */
     private void actionGo(String doorName){
         Exit exit = null;
          for(Exit e : selectedHero.getCurrentPlace().getExits()){
@@ -353,11 +402,14 @@ public class Game {
              System.out.println("Il n'y a pas de sortie nommée '" + doorName + "'");
     }
     
+    /**
+     * Permet de tenter d'accéder à une porte avec une clé
+     * @param doorName nom de la porte
+     * @param keyName nom de la clé
+     */
     private void actionGo(String doorName, String keyName){
         Exit exit = null;
-        for(Exit e : selectedHero
-                .getCurrentPlace()
-                .getExits()){
+        for(Exit e : selectedHero.getCurrentPlace().getExits()){
             if(e.DOOR_NAME.equals(doorName))
                 exit = e;
         }
@@ -372,6 +424,9 @@ public class Game {
             System.out.println("Quelque chose ne correspond pas...");
     }
     
+    /**
+     * Permet d'afficher la liste des commandes disponibles
+     */
     private void actionHelp(){
         System.out.println("Voici la liste des commandes utilisables:");
         for(Map.Entry<String,String> c : commands.entrySet()){
@@ -379,6 +434,9 @@ public class Game {
         }
     }
     
+    /**
+     * Permet de donner un descriptif du lieu entourant le héros
+     */
     private void actionLookAround(){
         System.out.println("Description de '" + selectedHero.getCurrentPlace().NAME + "':");
         System.out.println(selectedHero.getCurrentPlace().DESCRIPTION);
@@ -396,6 +454,10 @@ public class Game {
         System.out.println("");
     }
     
+    /**
+     * Permet d'avoir le descriptif d'un objet
+     * @param objectName nom de l'objet
+     */
     private void actionLookObject(String objectName){
         Item item = null;
         List<Item> itemList = selectedHero.getCurrentPlace().getItems();
@@ -406,6 +468,10 @@ public class Game {
             System.out.println(item.NAME + " : " + item.DESCRIPTION);
     }
     
+    /**
+     * Permet de faire ramasser un objet au héros
+     * @param itemName 
+     */
     private void actionTakeItem(String itemName){
         Item item;
         List<Item> items = selectedHero.getCurrentPlace().getItems();
@@ -418,6 +484,9 @@ public class Game {
         }
     }
     
+    /**
+     * Permet de quitter le jeu, en demandant une confirmation à l'utilisateur
+     */
     private void actionQuit(){
         System.out.println("Voulez-vous vraiment quitter ? 1 : Oui , 2 : Non");
         Scanner sc = new Scanner(System.in);
@@ -429,12 +498,19 @@ public class Game {
             quittingGame = true;
     }
     
+    /**
+     * Permet d'obtenir un descriptif de l'inventaire du héros
+     */
     private void actionLookInventory(){
         System.out.println("Voici votre inventaire:");
         for(Item i : selectedHero.getInventory())
             System.out.println("- " + i.NAME + " : " + i.DESCRIPTION);
     }
     
+    /**
+     * Permet d'utiliser un objet
+     * @param itemName nom de l'objet
+     */
     private void actionUseItem(String itemName){
         Item item = Item.getItemByName(selectedHero.getInventory(), itemName);
         if(item != null){
@@ -446,6 +522,11 @@ public class Game {
         }
     }
     
+    /**
+     * Permet d'utiliser deux objets ensemble
+     * @param itemName1 nom du premier objet
+     * @param itemName2 nom du deuxième objet
+     */
     private void actionUseItem(String itemName1, String itemName2){
         Item item1 = Item.getItemByName(selectedHero.getInventory(), itemName1);
         Item item2 = Item.getItemByName(selectedHero.getInventory(), itemName2);
@@ -461,6 +542,10 @@ public class Game {
             System.out.println("Vous ne possédez pas l'objet '" + itemName2 + "'");
     }
     
+    /**
+     * Permet d'engager un combat entre le héros et un ennemi
+     * @param enemyName nom de l'ennemi
+     */
     private void actionFight(String enemyName){
         Enemy enemy = null;
         for(Enemy e : selectedHero.getCurrentPlace().getEnemies()){
@@ -475,6 +560,10 @@ public class Game {
             System.out.println("Il n'y a pas d'enemi nommé '" + enemyName + "' aux alentours");
     }
     
+    /**
+     * Permet de démarrer une discussion entre le héros et un personnage
+     * @param characterName nom du personnage
+     */
     private void actionTalk(String characterName){
         GameCharacter character = null;
         for(GameCharacter c : selectedHero.getCurrentPlace().getCharacters()){
@@ -489,22 +578,42 @@ public class Game {
                 System.out.println("Il n'y a pas de personne nommée '" + characterName + "' aux alentours");
     }
     
+    /**
+     * Permet de savoir si le jeu est sur le point d'être quitté
+     * @return true si le jeu se quitte, ou false si le jeu ne se quitte pas
+     */
     public Boolean isQuitting() {
         return quittingGame;
     }
     
+    /**
+     * Permet de savoir si l'objectif principal de la partie est accompli
+     * @return true si l'objectif est accompli, ou false si il n'est pas accompli
+     */
     public Boolean isMainGoalAchieved(){
         return mainGoal.isAchieved();
     }
     
+    /**
+     * Permet de savoir si le héros est vivant
+     * @return true si le héros est vivant, false si il est mort
+     */
     public Boolean isHeroAlive(){
         return selectedHero.isAlive();
     }
 
+    /**
+     * Permet de retourner le lieu de démarrage de la partie
+     * @return lieu par défaut
+     */
     public Place getDefaultPlace() {
         return defaultPlace;
     }
 
+    /**
+     * Permet de retourner le héros choisi par le joueur
+     * @return héros sélectionné
+     */
     public Hero getSelectedHero() {
         return selectedHero;
     }
