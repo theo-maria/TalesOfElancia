@@ -9,15 +9,21 @@ import character.Enemy;
 import character.Hero;
 
 /**
- *
- * @author Theo
+ * Classe de Gan, un des ennemis du jeu
  */
 public class Gan extends Enemy {
     
+    /**
+     * Permet d'instancier Gan
+     */
     public Gan() {
         super("Gan", "Maître de la foudre", 70, 4, 5, 3, 15);
     }
 
+    /**
+     * Permet d'effectuer une attaque spéciale sur le héros
+     * @param hero le héros
+     */
     @Override
     public void specialAttack(Hero hero) {
         System.out.println("Attaque spéciale: Gan vous frappe de sa foudre puissante !");

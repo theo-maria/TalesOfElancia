@@ -9,17 +9,29 @@ import character.GameCharacter;
 import character.npc.Guard;
 
 /**
- *
- * @author Theo
+ * Un objet lancable
  */
 public class ThrowableItem extends Item {
     
+    /**
+     * Personnage sur qui on peut lancer l'objet
+     */
     private GameCharacter throwableOn;
 
+    /**
+     * Permet d'instancier un objet lancable
+     * @param NAME nom
+     * @param DESCRIPTION description
+     * @param throwableOn personnage
+     */
     public ThrowableItem(String NAME, String DESCRIPTION, GameCharacter throwableOn) {
         super(NAME, DESCRIPTION, 0, 0, 0, 0);
         this.throwableOn = throwableOn;
     }
+
+    /**
+     * Permet de lancer l'objet sur le personnage
+     */
     public void throwItem(){
         if(throwableOn instanceof Guard){
             System.out.println("Voulez lancez l'objet sur '" + throwableOn.NAME + "'");
@@ -27,6 +39,10 @@ public class ThrowableItem extends Item {
         }
     }
     
+    /**
+     * Permet de savoir sur qui on peut lancer l'objet
+     * @return personnage
+     */
     public Object getThrowableOn() {
         return throwableOn;
     }

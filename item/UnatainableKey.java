@@ -8,18 +8,27 @@ package item;
 import character.Hero;
 
 /**
- *
- * @author Theo
+ * Une clé qui nécessite un objt particulier pour être atteinte
  */
 public class UnatainableKey extends Key {
     
     private Item neededItem;
     
+    /**
+     * Permet d'instancier la clé
+     * @param NAME nom
+     * @param DESCRIPTION description
+     * @param neededItem objet requis
+     */
     public UnatainableKey(String NAME, String DESCRIPTION, Item neededItem) {
         super(NAME, DESCRIPTION);
         this.neededItem = neededItem;
     }
     
+    /**
+     * Permet au héros de ramasser la clé, si il possède l'objet requis
+     * @param hero héros
+     */
     @Override
     public void take(Hero hero)
     {

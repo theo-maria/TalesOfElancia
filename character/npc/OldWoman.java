@@ -7,11 +7,25 @@ import item.Key;
 import world.Exit;
 import world.Place;
 
+/**
+ * Classe d'une vieille dame tenant une clé, montrant le chemin au joueur
+ */
 public class OldWoman extends NPC {
     
+    /**
+     * Clé tenue
+     */
     private Key heldKey;
+    /**
+     * Un lien vers le lieu dévoilé par la vieille dame
+     */
     private Place nextRoom;
 
+    /**
+     * Permet d'instancier une vieille dame
+     * @param heldKey clé
+     * @param nextRoom pièce suivante
+     */
     public OldWoman(Key heldKey, Place nextRoom) {
         super("vieille_dame", 50, 0, 30, 10);
         this.heldKey = heldKey;
@@ -22,6 +36,10 @@ public class OldWoman extends NPC {
         dialogues.add("Etudiez le en détail et vous aurez éventuellement une infime chance. Tenez, prenez ceci et continuez d’avancer, elle vous sera utile.");
     }
     
+    /**
+     * Permet au héros de parler à la vieille dame
+     * @param heroTalking héros
+     */
     @Override
     public void talk(Hero heroTalking){
         super.talk(heroTalking);

@@ -31,6 +31,9 @@ import world.Exit;
 import world.LockedExit;
 import world.PuzzleDoor;
 
+/**
+ * Classe centrale d'une partie de Tales of Elancia
+ */
 public class Game {
     /**
      * Objectif principal de la partie.

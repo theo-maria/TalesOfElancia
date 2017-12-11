@@ -7,25 +7,37 @@ package game;
 
 import character.Enemy;
 import character.Hero;
-import item.Consumable;
 import java.util.Random;
 import java.util.Scanner;
 
 /**
- *
- * @author Theo
+ * Combat entre un ennemi et un héros
  */
 public class Fight {
     
+    /**
+     * Le héros
+     */
     Hero hero;
+    /**
+     * L'ennemi
+     */
     Enemy enemy;
     
+    /**
+     * Permet d'instancier un combat
+     * @param hero héros
+     * @param enemy ennemi
+     */
     public Fight(Hero hero, Enemy enemy)
     {
         this.hero = hero;
         this.enemy = enemy;
     }
     
+    /**
+     * Permet de démarrer le combat
+     */
     public void startFight()
     {
         System.out.println("--- " + enemy.NAME + ": " + enemy.DESCRIPTION + " ---");
@@ -48,6 +60,9 @@ public class Fight {
         hero.clearBuffs();
     }
     
+    /**
+     * Permet de déterminer l'action du héros
+     */
     public void chooseHeroAction()
     {
         System.out.println("\n Au tour de " + hero.NAME + "\n");
@@ -78,6 +93,9 @@ public class Fight {
         }
     }
     
+    /**
+     * Permet de déterminer l'action de l'ennemi
+     */
     public void chooseEnemyAction()
     {
         Random specialAttackChance = new Random();
