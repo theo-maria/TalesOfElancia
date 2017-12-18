@@ -44,6 +44,7 @@ public class Fight {
         System.out.println("\nQue le combat commence !!!\n");
         while(hero.isAlive() && enemy.isAlive())
         {
+            System.out.println("----------------------------------------");
             System.out.println("");
             System.out.println(hero.NAME + ":");
             System.out.println("Vie: " + hero.getCurrentHealth());
@@ -57,6 +58,10 @@ public class Fight {
             if(enemy.isAlive())
                 this.chooseEnemyAction(); 
         }
+        if(hero.isAlive())
+            System.out.println("\n" + hero.NAME + " remporte le combat !");
+        else
+            System.out.println("\n " + hero.NAME + " a péri face au terrible " + enemy.NAME);
         hero.clearBuffs();
     }
     
@@ -74,6 +79,7 @@ public class Fight {
             choixAction = sc.nextInt();
         }while(choixAction != 1 && choixAction != 2);
         if(choixAction == 1){
+            System.out.println(hero.NAME + " attaque " + enemy.NAME);
             hero.attack(enemy);
         }
         else{

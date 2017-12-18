@@ -4,11 +4,6 @@ package item;
  * Un equipement
  */
 public class Equipment extends Item {
-
-    /**
-     * Indique si l'équipement est porté
-     */
-    private Boolean worn;
     
     /**
      * Permt d'instancier un équipement
@@ -24,23 +19,5 @@ public class Equipment extends Item {
     {
         super(NAME, DESCRIPTION, BONUS_HEALTH, 
             BONUS_ARMOR, BONUS_FORCE, BONUS_AGILITY);
-        this.worn = false;
-    }
-        
-    /**
-     * Permet de savoir si l'objet est porté par le héros
-     * @return true si porté, false sinons
-     */
-    public Boolean isWorned()
-    {
-        return this.worn;
-    }
-
-    /**
-     * Permet de définir si l'équipement est porté ou non
-     * @param worn porté
-     */
-    public void setWorn(boolean worn) {
-        this.worn = worn;
     }
 }

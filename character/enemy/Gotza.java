@@ -22,7 +22,7 @@ public class Gotza extends Enemy {
      * Permet d'instancier Gotza
      */
     public Gotza() {
-        super("Gotza", "Maître de la nuit", 50, 3, 7, 10, 10);
+        super("Gotza", "Maître de la nuit", 50, 2, 7, 10, 10);
         agility_bonus = 0;
     }
 

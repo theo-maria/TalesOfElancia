@@ -15,7 +15,7 @@ public class Thief extends Hero {
      * Permet d'instancier un voleur
      */
     public Thief() {
-        super("Esccrow", "Voleur", 30, 4, 6, 25);
+        super("Esccrow", "Voleur", 30, 2, 6, 25);
         firstStrike = true;
     }
     

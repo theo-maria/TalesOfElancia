@@ -17,6 +17,7 @@ import character.npc.Guard;
 import character.npc.Merchant;
 import character.npc.OldWoman;
 import item.Chest;
+import item.Equipment;
 import item.Item;
 import item.Key;
 import item.SoldItem;
@@ -24,10 +25,12 @@ import item.ThrowableItem;
 import item.UnatainableKey;
 import item.equipment.Armor;
 import item.equipment.Glasses;
+import item.equipment.NightVisionGlasses;
 import item.equipment.Ring;
 import java.util.*;
 import world.BigDoor;
 import world.Exit;
+import world.ItemNeededPlace;
 import world.LockedExit;
 import world.PuzzleDoor;
 
@@ -143,8 +146,8 @@ public class Game {
         worldPlaces.add(vilburasChamber);
         Place enigmaticRoom = new Place("Pièce énigmatique", "Cette pièce vous donne un terrible mal de crâne.");
         worldPlaces.add(enigmaticRoom);
-        Place darkRoom = new Place("Pièce sombre", "Même un chat n'oserait pas s'aventurer dans un lieu aussi sombre...");
-        darkRoom.setDarkness(true);
+        Glasses nightVisionGlasses = new Glasses("lunettes_vision_nocturne", "Des lunettes qui permettent de voir dans le noir", 5, 0, 0, 5);
+        Place darkRoom = new ItemNeededPlace("Pièce sombre", "Même un chat n'oserait pas s'aventurer dans un lieu aussi sombre...",nightVisionGlasses);
         worldPlaces.add(darkRoom);
         Place stairs = new Place("Escalier", "Cet escalier en colimasson menne au sommet de la tour.");
         worldPlaces.add(stairs);
@@ -217,7 +220,6 @@ public class Game {
         defaultPlace.addItem(stone);
         defaultPlace.addItem(slab);
         
-        Glasses nightVisionGlasses = new Glasses("lunettes_vision_nocturne", "Des lunettes qui permettent de voir dans le noir", 5, 0, 0, 5);
         merchant.addSoldItem(new SoldItem(nightVisionGlasses, killBeelzum));
         Armor legendaryArmor = new Armor("armure_legendaire", "Une armure dont émane une puissante aura. Elle vous donne un air supérieur.",10,5,5,5);
         merchant.addSoldItem(new SoldItem(legendaryArmor, killGan));

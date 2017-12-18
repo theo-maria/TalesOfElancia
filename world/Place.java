@@ -32,11 +32,6 @@ public class Place {
      * Description du lieu
      */
     public final String DESCRIPTION;
-    
-    /**
-     * Le lieu est un lieu sombre
-     */
-    private Boolean inDarkness;
 
     /**
      * Permet d'instancier un lieu
@@ -140,11 +135,4 @@ public class Place {
         exits.add(e);
     }
     
-    /**
-     * Permet de définir si le lieu est un lieu sombre
-     * @param inDarkness
-     */
-    public void setDarkness(Boolean inDarkness){
-        this.inDarkness = inDarkness;
-    }
 }

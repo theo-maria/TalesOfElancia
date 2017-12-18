@@ -24,6 +24,7 @@ public abstract class Hero extends GameCharacter {
      * Liste des objets actifs du joueur
      */
     private List<Consumable> activatedItems ;
+    private List<Equipment> equipedItems;
     private final String CLASS_NAME;
 
     /**
@@ -39,6 +40,7 @@ public abstract class Hero extends GameCharacter {
         super(NAME, BASE_HEALTH, BASE_ARMOR, BASE_FORCE, BASE_AGILITY);
         this.CLASS_NAME = CLASS_NAME;
         inventory = new ArrayList<>();
+        equipedItems = new ArrayList<>();
         activatedItems = new ArrayList<>();
     }
 
@@ -66,16 +68,8 @@ public abstract class Hero extends GameCharacter {
     public int getMaxHealth() {
 
         int healthBonus = 0;
-        for(Item item : this.inventory)
-        {
-            if(item instanceof Equipment)
-            {
-                if(((Equipment) item).isWorned())
-                {
-                    healthBonus += item.getBONUS_HEALTH();
-                }
-            }
-        }
+        for(Equipment item : equipedItems)
+            healthBonus += item.getBONUS_HEALTH();
         for(Consumable c : activatedItems)
             healthBonus+=c.getBONUS_HEALTH();
 
@@ -90,17 +84,8 @@ public abstract class Hero extends GameCharacter {
     public int getTotalArmor() 
     {
         int armorBonus = 0;
-        for(Item item : this.inventory)
-        {
-            if(item instanceof Equipment)
-            {
-                if(((Equipment) item).isWorned())
-                {
-                    armorBonus += item.getBONUS_ARMOR();
-                }
-            }
-        }
-        
+        for(Item item : equipedItems)
+            armorBonus += item.getBONUS_ARMOR();
         for(Consumable c : activatedItems)
             armorBonus+=c.getBONUS_ARMOR();
 
@@ -115,16 +100,8 @@ public abstract class Hero extends GameCharacter {
     public int getTotalForce() 
     {
         int forceBonus = 0;
-        for( Item item : this.inventory)
-        {
-            if(item instanceof Equipment)
-            {
-                if(((Equipment) item).isWorned())
-                {
-                    forceBonus += item.getBONUS_FORCE();
-                }
-            }
-        }
+        for( Item item : equipedItems)
+            forceBonus += item.getBONUS_FORCE();
         
         for(Consumable c : activatedItems)
             forceBonus+=c.getBONUS_FORCE();
@@ -140,16 +117,8 @@ public abstract class Hero extends GameCharacter {
     public int getTotalAgility() 
     {
         int agilityBonus = 0;
-        for( Item item : this.inventory)
-        {
-            if(item instanceof Equipment)
-            {
-                if(((Equipment) item).isWorned())
-                {
-                    agilityBonus += item.getBONUS_AGILITY();
-                }
-            }
-        }
+        for( Item item : equipedItems)
+            agilityBonus += item.getBONUS_AGILITY();
         
         for(Consumable c : activatedItems)
             agilityBonus+=c.getBONUS_AGILITY();
@@ -167,7 +136,7 @@ public abstract class Hero extends GameCharacter {
         {
             if(item.equals(e))
             {
-                e.setWorn(true);
+                equipedItems.add(e);
             }
         }
     }
@@ -197,7 +166,7 @@ public abstract class Hero extends GameCharacter {
      * @param item2 objet 2
      */
     public void useItem(Item item1, Item item2){
-        
+        // Non implémentée
     }
 
     /**
@@ -297,6 +266,12 @@ public abstract class Hero extends GameCharacter {
      */
     public Boolean hasItem(Item i){
         return inventory.contains(i);
+    }
+    
+    public Boolean hasItemEquipped(Item i){
+        if(i instanceof Equipment)
+            return equipedItems.contains((Equipment)i);
+        return false;
     }
     
     /**

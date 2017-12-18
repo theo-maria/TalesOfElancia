@@ -16,7 +16,7 @@ public class Paladin extends Hero {
      * Permet d'instancier un Paladin
      */
     public Paladin() {
-        super("Sungwald Lighthawk", "Paladin", 75, 8, 5, 5);
+        super("Sungwald Lighthawk", "Paladin", 75, 4, 5, 5);
         HEALTH_GIVEN = 2;
     }
     

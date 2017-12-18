@@ -22,7 +22,7 @@ public class Sorcerer extends Hero {
      * Permet d'instancier un sorcier
      */
     public Sorcerer() {
-        super("Sagius", "Sorcier", 25, 5, 8, 20);
+        super("Sagius", "Sorcier", 25, 2, 8, 20);
         COMPANION_ATTACK_CHANCE = 15;
         COMPANION_ATTACK_DAMAGE = 10;
     }

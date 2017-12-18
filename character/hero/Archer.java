@@ -18,7 +18,7 @@ public class Archer extends Hero {
      * Permet d'instancier un archer
      */
     public Archer() {
-        super("Ellas", "Archer", 25, 3, 5, 30);
+        super("Ellas", "Archer", 25, 1, 5, 30);
         HEADSHOT_CHANCE = 20;
     }
 

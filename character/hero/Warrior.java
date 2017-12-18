@@ -15,7 +15,7 @@ public class Warrior extends Hero {
      * Permet d'instancier un guerrier
      */
     public Warrior() {
-        super("Gundir", "Guerrier", 50, 5, 10, 15);
+        super("Gundir", "Guerrier", 50, 3, 10, 15);
         FURY_STEP = 15;
         FURY_DAMAGE = 5;
     }
@@ -30,5 +30,7 @@ public class Warrior extends Hero {
             System.out.println("Rage du guerrier: " + NAME + " voit ses dégâts considérablement augmenter !");
             enemy.damage(this.getTotalForce() + FURY_DAMAGE);
         }
+        else
+            super.attack(enemy);
     }
 }

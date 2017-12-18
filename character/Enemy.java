@@ -54,7 +54,7 @@ public abstract class Enemy extends GameCharacter {
     @Override
     public void damage(int damageValue){
         super.damage(damageValue);
-        if(currentHealth <= 0 && activableGoals.size() > 0){
+        if(currentHealth <= 0){
             for(Goal g : activableGoals)
                 g.achieve();
         }

@@ -17,7 +17,7 @@ public class Beelzum extends Enemy {
      * Permet d'instancier Beelzum
      */
     public Beelzum() {
-        super("Beelzum", "Maître des tempêtes", 60, 2, 9, 15, 15);
+        super("Beelzum", "Maître des tempêtes", 60, 1, 9, 15, 15);
     }
 
     /**

@@ -17,7 +17,7 @@ public class Gan extends Enemy {
      * Permet d'instancier Gan
      */
     public Gan() {
-        super("Gan", "Maître de la foudre", 70, 4, 5, 3, 15);
+        super("Gan", "Maître de la foudre", 70, 3, 6, 3, 15);
     }
 
     /**
